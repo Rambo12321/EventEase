@@ -37,9 +37,11 @@ export const getUserByID = async (req, res, next) => {
 
 export const addUser = async (req, res, next) => {
   try {
-    const { name, email } = req.body || {};
-    if (!name || !email) {
-      const err = new Error("Name and Email must be required to add User");
+    const { name, email, password } = req.body || {};
+    if (!name || !email || !password) {
+      const err = new Error(
+        "Name, Password and Email must be provided to add User"
+      );
       err.statusCode = 401;
       throw err;
     }
@@ -47,6 +49,7 @@ export const addUser = async (req, res, next) => {
       data: {
         name,
         email,
+        password,
       },
     });
     res.status(201).json(newUser);
@@ -58,15 +61,15 @@ export const addUser = async (req, res, next) => {
 export const updateUserPartial = async (req, res, next) => {
   try {
     const id = req.params.id || req.query.id || {};
-    const { name, email } = req.body || {};
+    const { name, email, password } = req.body || {};
     if (!id) {
       const err = new Error("Id is required to update the user");
       err.statusCode = 401;
       throw err;
     }
-    if (name === undefined && email === undefined) {
+    if (name === undefined && email === undefined && password === undefined) {
       const err = new Error(
-        `At least one of the 2 fields "name" or "email" must be provided to update user partially`
+        `At least one of the 3 fields "name", "password" or "email" must be provided to update user partially`
       );
       err.statusCode = 401;
       throw err;
@@ -76,6 +79,7 @@ export const updateUserPartial = async (req, res, next) => {
       data: {
         ...(name !== undefined && name !== "" && { name }),
         ...(email !== "" && email !== undefined && { email }),
+        ...(password !== "" && password !== undefined && { password }),
       },
     });
     res.status(200).json(updatedUser);
@@ -87,15 +91,15 @@ export const updateUserPartial = async (req, res, next) => {
 export const updateUserFull = async (req, res, next) => {
   try {
     const id = req.params.id || req.query.id || {};
-    const { name, email } = req.body || {};
+    const { name, email, password } = req.body || {};
     if (!id) {
       const err = new Error("Id is required to update the user");
       err.statusCode = 401;
       throw err;
     }
-    if (!name || !email) {
+    if (!name || !email || !password) {
       const err = new Error(
-        `Both "name" or "email" must be provided to full update User`
+        `"Name", "Email" and "Password" must be provided to full update User`
       );
       err.statusCode = 401;
       throw err;
