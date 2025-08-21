@@ -7,16 +7,18 @@ import {
   updateUserFull,
   deleteUser,
 } from "../controllers/userController.js";
+import { validate } from "../middleware/validate.js";
+import { userSchema } from "../schemas/userSchema.js";
 
 const router = express.Router();
 
-router.route("/").get(getUsers).post(addUser);
+router.route("/").get(getUsers).post(validate(userSchema), addUser);
 
 router
   .route("/:id")
   .get(getUserByID)
-  .patch(updateUserPartial)
-  .put(updateUserFull)
+  .patch(validate(userSchema), updateUserPartial)
+  .put(validate(userSchema), updateUserFull)
   .delete(deleteUser);
 
 export default router;

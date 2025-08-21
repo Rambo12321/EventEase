@@ -1,4 +1,4 @@
-import { verifyUser } from "../middleware/auth.js";
+import { verifyUser } from "../utils/eventUtil.js";
 import prisma from "../utils/prismaClient.js";
 
 export const getAllEvents = async (req, res, next) => {
@@ -62,13 +62,14 @@ export const addEvent = async (req, res, next) => {
     //   throw err;
     // }
 
-    if (!title || !date || !location) {
-      const err = new Error(
-        `"location" , "date" and "title" must be provided to create event`
-      );
-      err.statusCode = 401;
-      throw err;
-    }
+    // NOT REQUIRED MANUALLY AS HANDLED by zod
+    // if (!title || !date || !location) {
+    //   const err = new Error(
+    //     `"location" , "date" and "title" must be provided to create event`
+    //   );
+    //   err.statusCode = 401;
+    //   throw err;
+    // }
 
     const event = await prisma.Event.create({
       data: {
@@ -112,13 +113,14 @@ export const updateEventFull = async (req, res, next) => {
     //   throw err;
     // }
 
-    if (!title || !date || !location) {
-      const err = new Error(
-        `"location" , "date" and "title" must be provided to Update Full event`
-      );
-      err.statusCode = 401;
-      throw err;
-    }
+    // NOT REQUIRED MANUALLY AS HANDLED by zod
+    // if (!title || !date || !location) {
+    //   const err = new Error(
+    //     `"location" , "date" and "title" must be provided to Update Full event`
+    //   );
+    //   err.statusCode = 401;
+    //   throw err;
+    // }
 
     await verifyUser(id, req.user.id, req.user.role);
 

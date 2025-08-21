@@ -38,13 +38,7 @@ export const getUserByID = async (req, res, next) => {
 export const addUser = async (req, res, next) => {
   try {
     const { name, email, password } = req.body || {};
-    if (!name || !email || !password) {
-      const err = new Error(
-        "Name, Password and Email must be provided to add User"
-      );
-      err.statusCode = 401;
-      throw err;
-    }
+
     const newUser = await prisma.User.create({
       data: {
         name,
@@ -91,19 +85,13 @@ export const updateUserPartial = async (req, res, next) => {
 export const updateUserFull = async (req, res, next) => {
   try {
     const id = req.params.id || req.query.id || {};
-    const { name, email, password } = req.body || {};
+    const { name, email, password } = req.body;
     if (!id) {
       const err = new Error("Id is required to update the user");
       err.statusCode = 401;
       throw err;
     }
-    if (!name || !email || !password) {
-      const err = new Error(
-        `"Name", "Email" and "Password" must be provided to full update User`
-      );
-      err.statusCode = 401;
-      throw err;
-    }
+
     const updatedUser = await prisma.User.update({
       where: { id: parseInt(id) },
       data: {

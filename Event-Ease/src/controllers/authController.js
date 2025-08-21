@@ -15,15 +15,16 @@ const signToken = (user) => {
 
 export const register = async (req, res, next) => {
   try {
-    const { name, email, password, role } = req.body || {};
+    const { name, email, password, role } = req.body;
 
-    if (!name || !email || !password) {
-      const err = new Error(
-        `"Name", "Email", and "Password" must be provided to register an User`
-      );
-      err.statusCode = 401;
-      throw err;
-    }
+    // NOT REQUIRED MANUALLY AS HANDLED by zod
+    // if (!name || !email || !password) {
+    //   const err = new Error(
+    //     `"Name", "Email", and "Password" must be provided to register an User`
+    //   );
+    //   err.statusCode = 401;
+    //   throw err;
+    // }
 
     const hashed = await bcrypt.hash(password, 10);
 
@@ -60,11 +61,12 @@ export const login = async (req, res, next) => {
   try {
     const { email, password } = req.body || {};
 
-    if (!email || !password) {
-      const err = new Error(`Please provide the Email and Password to login`);
-      err.statusCode = 401;
-      throw err;
-    }
+    // NOT REQUIRED MANUALLY AS HANDLED by zod
+    // if (!email || !password) {
+    //   const err = new Error(`Please provide the Email and Password to login`);
+    //   err.statusCode = 401;
+    //   throw err;
+    // }
 
     const user = await prisma.user.findUnique({
       where: {
