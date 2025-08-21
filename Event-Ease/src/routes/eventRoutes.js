@@ -7,16 +7,17 @@ import {
   updateEventPartial,
   deleteEvent,
 } from "../controllers/eventController.js";
+import { requireAuth } from "../middleware/auth.js";
 
 const router = express.Router();
 
-router.route("/").get(getAllEvents).post(addEvent);
+router.route("/").get(getAllEvents).post(requireAuth, addEvent);
 
 router
   .route("/:id")
   .get(getEventById)
-  .put(updateEventFull)
-  .patch(updateEventPartial)
-  .delete(deleteEvent);
+  .put(requireAuth, updateEventFull)
+  .patch(requireAuth, updateEventPartial)
+  .delete(requireAuth, deleteEvent);
 
 export default router;

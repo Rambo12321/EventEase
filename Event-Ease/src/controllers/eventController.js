@@ -1,5 +1,4 @@
 import prisma from "../utils/prismaClient.js";
-import { validateUser } from "../utils/eventUtils.js";
 
 export const getAllEvents = async (req, res, next) => {
   try {
@@ -45,21 +44,22 @@ export const getEventById = async (req, res, next) => {
 
 export const addEvent = async (req, res, next) => {
   try {
-    const { title, description, date, location, userId } = req.body || {};
+    const { title, description, date, location } = req.body || {};
 
-    if (!userId) {
-      const err = new Error(`"UserId" must be provided to create event`);
-      err.statusCode = 401;
-      throw err;
-    }
+    // NO NEED TO CHECK THIS AS NOW WE ARE SENDING REQUEST FROM USER(LOGGED IN)
+    // if (!userId) {
+    //   const err = new Error(`"UserId" must be provided to create event`);
+    //   err.statusCode = 401;
+    //   throw err;
+    // }
 
-    const user = await validateUser(userId);
+    // const user = await validateUser(userId);
 
-    if (!user) {
-      const err = new Error(`No user exist with id : ${userId}`);
-      err.statusCode = 404;
-      throw err;
-    }
+    // if (!user) {
+    //   const err = new Error(`No user exist with id : ${userId}`);
+    //   err.statusCode = 404;
+    //   throw err;
+    // }
 
     if (!title || !date || !location) {
       const err = new Error(
@@ -75,7 +75,7 @@ export const addEvent = async (req, res, next) => {
         description,
         date,
         location,
-        userId: parseInt(userId),
+        userId: req.user.id,
       },
       include: { user: true },
     });
@@ -95,21 +95,21 @@ export const updateEventFull = async (req, res, next) => {
       throw err;
     }
 
-    const { title, description, date, location, userId } = req.body || {};
+    const { title, description, date, location } = req.body || {};
 
-    if (!userId) {
-      const err = new Error(`"UserId" must be provided to Update event Full`);
-      err.statusCode = 401;
-      throw err;
-    }
+    // if (!userId) {
+    //   const err = new Error(`"UserId" must be provided to Update event Full`);
+    //   err.statusCode = 401;
+    //   throw err;
+    // }
 
-    const user = await validateUser(userId);
+    // const user = await validateUser(userId);
 
-    if (!user) {
-      const err = new Error(`No user exist with id : ${userId}`);
-      err.statusCode = 404;
-      throw err;
-    }
+    // if (!user) {
+    //   const err = new Error(`No user exist with id : ${userId}`);
+    //   err.statusCode = 404;
+    //   throw err;
+    // }
 
     if (!title || !date || !location) {
       const err = new Error(
@@ -126,7 +126,7 @@ export const updateEventFull = async (req, res, next) => {
         date,
         title,
         ...(description !== "" && { description }),
-        userId: parseInt(userId),
+        userId: req.user.id,
       },
     });
     res.status(200).json(updatedEvent);
@@ -145,21 +145,21 @@ export const updateEventPartial = async (req, res, next) => {
       throw err;
     }
 
-    const { title, description, date, location, userId } = req.body || {};
+    const { title, description, date, location } = req.body || {};
 
-    if (!userId) {
-      const err = new Error(`"userId" not provided`);
-      err.statusCode = 401;
-      throw err;
-    }
+    // if (!userId) {
+    //   const err = new Error(`"userId" not provided`);
+    //   err.statusCode = 401;
+    //   throw err;
+    // }
 
-    const user = await validateUser(userId);
+    // const user = await validateUser(userId);
 
-    if (!user) {
-      const err = new Error(`No user exist with id : ${userId}`);
-      err.statusCode = 404;
-      throw err;
-    }
+    // if (!user) {
+    //   const err = new Error(`No user exist with id : ${userId}`);
+    //   err.statusCode = 404;
+    //   throw err;
+    // }
 
     if (!title && !date && !location && !description) {
       const err = new Error(
@@ -176,7 +176,7 @@ export const updateEventPartial = async (req, res, next) => {
         ...(description !== (undefined || "") && { description }),
         ...(location !== (undefined || "") && { location }),
         ...(date !== (undefined || "") && { date }),
-        ...(userId !== (undefined || "") && { userId: parseInt(userId) }),
+        userId: req.user.id,
       },
     });
 
