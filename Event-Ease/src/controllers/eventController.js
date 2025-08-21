@@ -1,3 +1,4 @@
+import { verifyUser } from "../middleware/auth.js";
 import prisma from "../utils/prismaClient.js";
 
 export const getAllEvents = async (req, res, next) => {
@@ -119,6 +120,8 @@ export const updateEventFull = async (req, res, next) => {
       throw err;
     }
 
+    await verifyUser(id, req.user.id, req.user.role);
+
     const updatedEvent = await prisma.Event.update({
       where: { id: parseInt(id) },
       data: {
@@ -169,6 +172,8 @@ export const updateEventPartial = async (req, res, next) => {
       throw err;
     }
 
+    await verifyUser(id, req.user.id, req.user.role);
+
     const updatedEvent = await prisma.Event.update({
       where: { id: parseInt(id) },
       data: {
@@ -196,6 +201,8 @@ export const deleteEvent = async (req, res, next) => {
       err.statusCode = 401;
       throw err;
     }
+
+    await verifyUser(id, req.user.id, req.user.role);
 
     const deletedEvent = await prisma.Event.delete({
       where: { id: parseInt(id) },
