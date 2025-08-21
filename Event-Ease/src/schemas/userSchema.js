@@ -5,6 +5,9 @@ export const userSchema = z.object({
   password: z
     .string()
     .min(6, { message: "Password must be of atleast 3 characters" }),
+  name: z
+    .string()
+    .min(3, { message: "name should be of atleast 3 characters" }),
 });
 
 export const updateUserSchema = userSchema.partial();

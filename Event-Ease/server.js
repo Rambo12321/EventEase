@@ -8,6 +8,7 @@ import userRoutes from "./src/routes/userRoutes.js";
 import eventRoutes from "./src/routes/eventRoutes.js";
 
 import { errorHandler } from "./src/middleware/errorHandler.js";
+import { swaggerDocs } from "./src/utils/swagger.js";
 
 dotenv.config();
 const app = express();
@@ -22,8 +23,11 @@ app.use("/auth", authRoutes);
 
 app.use(errorHandler);
 
+swaggerDocs(app);
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   console.log(`Server Started at port ${PORT} on ${new Date().toISOString()}`);
+  console.log(`Docs available at http://localhost:5000/docs`);
 });

@@ -1,4 +1,4 @@
-import prisma from "./prismaClient";
+import prisma from "./prismaClient.js";
 
 export const verifyUser = async (id, userId, role) => {
   const foundEvent = await prisma.event.findUnique({

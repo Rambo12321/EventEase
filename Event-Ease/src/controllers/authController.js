@@ -86,7 +86,7 @@ export const login = async (req, res, next) => {
       const err = new Error(
         `Email and Password do not match. Enter Correct credentials`
       );
-      err.statusCode = 404;
+      err.statusCode = 403;
       throw err;
     }
 
