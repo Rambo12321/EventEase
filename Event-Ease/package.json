@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "dev": "tsx watch server.js"
+    "dev": "tsx watch server.js",
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --runInBand"
   },
   "keywords": [],
   "author": "",
@@ -23,7 +23,10 @@
     "zod": "^4.0.17"
   },
   "devDependencies": {
+    "cross-env": "^10.0.0",
+    "jest": "^30.0.5",
     "prisma": "^6.14.0",
+    "supertest": "^7.1.4",
     "tsx": "^4.20.3"
   }
 }

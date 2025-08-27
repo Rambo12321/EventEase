@@ -28,7 +28,16 @@ export const getUserByID = async (req, res, next) => {
       err.statusCode = 404;
       throw err;
     } else {
-      res.status(200).json(user);
+      res.status(200).json({
+        user: {
+          id: user.id,
+          name: user.name,
+          role: user.role,
+          email: user.email,
+          createdAt: user.createdAt,
+          updatedAt: user.updatedAt,
+        },
+      });
     }
   } catch (error) {
     next(error);
