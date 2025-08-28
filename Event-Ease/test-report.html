@@ -1,0 +1,277 @@
+<html><head><meta charset="utf-8"/><title>Test Report</title><style type="text/css">:root {
+  --text-primary: #111;
+  --text-secondary: #4f4f4f;
+  --success: #006633;
+  --success-bright: #80ffbf;
+  --danger: #cc071e;
+  --danger-bright: #fbdfe0;
+  --warning: #995c00;
+  --warning-bright: #ffeea8;
+  --panel: #eee;
+  --border: #949494;
+  --disabled: #6b6b6b;
+}
+
+html,
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+  color: var(--text-primary);
+}
+body {
+  padding: 2rem 1rem;
+}
+.jesthtml-content {
+  margin: 0 auto;
+  max-width: 70rem;
+}
+header {
+  display: flex;
+  align-items: center;
+}
+#title {
+  margin: 0;
+  flex-grow: 1;
+}
+#logo {
+  height: 4rem;
+}
+#timestamp {
+  color: var(--text-secondary);
+  margin-top: 0.5rem;
+}
+
+#metadata-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.additional-information-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+}
+
+/** SUMMARY */
+#summary {
+  color: var(--text-primary);
+  display: flex;
+  font-family: monospace;
+  font-size: 1rem;
+}
+#summary > div {
+  margin-right: 0.5rem;
+  background: var(--panel);
+  padding: 1rem;
+  min-width: 15rem;
+}
+#summary > div:last-child {
+  margin-right: 0;
+}
+@media only screen and (max-width: 720px) {
+  #summary {
+    flex-direction: column;
+  }
+  #summary > div {
+    margin-right: 0;
+    margin-top: 1rem;
+  }
+  #summary > div:first-child {
+    margin-top: 0;
+  }
+}
+
+.summary-total {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+.summary-passed {
+  color: var(--success);
+  border-left: 0.4rem solid var(--success);
+  padding-left: 0.5rem;
+  margin-bottom: 0.15rem;
+}
+.summary-failed,
+.summary-obsolete-snapshots {
+  color: var(--danger);
+  border-left: 0.4rem solid var(--danger);
+  padding-left: 0.5rem;
+  margin-bottom: 0.15rem;
+}
+.summary-pending {
+  color: var(--warning);
+  border-left: 0.4rem solid var(--warning);
+  padding-left: 0.5rem;
+  margin-bottom: 0.15rem;
+}
+.summary-empty {
+  color: var(--disabled);
+  border-left: 0.4rem solid var(--disabled);
+  margin-bottom: 0.15rem;
+}
+
+.test-result {
+  padding: 1rem;
+  margin-bottom: 0.25rem;
+}
+.test-result:last-child {
+  border: 0;
+}
+.test-result.passed {
+  background-color: var(--success-bright);
+  color: var(--success);
+}
+.test-result.failed {
+  background-color: var(--danger-bright);
+  color: var(--danger);
+}
+.test-result.pending {
+  background-color: var(--warning-bright);
+  color: var(--warning);
+}
+
+.test-info {
+  display: flex;
+  justify-content: space-between;
+}
+.test-suitename {
+  width: 20%;
+  text-align: left;
+  font-weight: bold;
+  word-break: break-word;
+}
+.test-title {
+  width: 40%;
+  text-align: left;
+  font-style: italic;
+}
+.test-status {
+  width: 20%;
+  text-align: right;
+}
+.test-duration {
+  width: 10%;
+  text-align: right;
+  font-size: 0.85rem;
+}
+
+.failureMessages {
+  padding: 0 1rem;
+  margin-top: 1rem;
+  border-top: 1px dashed var(--danger);
+}
+.failureMessages.suiteFailure {
+  border-top: none;
+}
+.failureMsg {
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
+
+.suite-container {
+  margin-bottom: 1rem;
+}
+.suite-info {
+  padding: 1rem;
+  background-color: var(--panel);
+  color: var(--text-secondary);
+  border: 0.15rem solid;
+  border-color: var(--panel);
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
+.suite-info:hover {
+  border-color: var(--border);
+  cursor: pointer;
+}
+.suite-info .suite-path {
+  word-break: break-all;
+  flex-grow: 1;
+  font-family: monospace;
+  font-size: 1rem;
+}
+.suite-info .suite-time {
+  margin-left: 1rem;
+  padding: 0.2rem 0.3rem;
+  font-size: 0.85rem;
+}
+.suite-info .suite-time.warn {
+  background-color: var(--danger);
+  color: #fff;
+}
+.suite-info:before {
+  content: "\2303";
+  display: inline-block;
+  margin-right: 1rem;
+  transform: rotate(180deg) translateY(0.15rem);
+}
+.suite-container[open] .suite-info:before {
+  transform: rotate(0deg) translateY(0.15rem);
+}
+
+/* CONSOLE LOGS */
+.suite-consolelog {
+  margin-bottom: 0.25rem;
+  padding: 1rem;
+  background-color: var(--panel);
+}
+.suite-consolelog-header {
+  font-weight: bold;
+}
+.suite-consolelog-item {
+  padding: 0.5rem;
+}
+.suite-consolelog-item pre {
+  margin: 0.5rem 0;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
+.suite-consolelog-item-origin {
+  color: var(--text-secondary);
+  font-weight: bold;
+}
+.suite-consolelog-item-message {
+  color: var(--text-primary);
+  font-size: 1rem;
+  padding: 0 0.5rem;
+}
+
+/* OBSOLETE SNAPSHOTS */
+.suite-obsolete-snapshots {
+  margin-bottom: 0.25rem;
+  padding: 1rem;
+  background-color: var(--danger-bright);
+  color: var(--danger);
+}
+.suite-obsolete-snapshots-header {
+  font-weight: bold;
+}
+.suite-obsolete-snapshots-item {
+  padding: 0.5rem;
+}
+.suite-obsolete-snapshots-item pre {
+  margin: 0.5rem 0;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
+.suite-obsolete-snapshots-item-message {
+  color: var(--text-primary);
+  font-size: 1rem;
+  padding: 0 0.5rem;
+}
+</style></head><body><main class="jesthtml-content"><header><h1 id="title">Test Report</h1></header><section id="metadata-container"><div id="timestamp">Started: 2025-08-28 15:33:13</div><div id="summary"><div id="suite-summary"><div class="summary-total">Suites (3)</div><div class="summary-passed ">3 passed</div><div class="summary-failed  summary-empty">0 failed</div><div class="summary-pending  summary-empty">0 pending</div></div><div id="test-summary"><div class="summary-total">Tests (41)</div><div class="summary-passed ">41 passed</div><div class="summary-failed  summary-empty">0 failed</div><div class="summary-pending  summary-empty">0 pending</div></div></div></section><details id="suite-1" class="suite-container" open=""><summary class="suite-info"><div class="suite-path">C:\Users\HP\Desktop\Developer Things\Self-Work\Learning\Express\Event-Ease\tests\auth.test.js</div><div class="suite-time">2.163s</div></summary><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">Auth API &gt; POST /auth/register</div><div class="test-title">should register a new user</div><div class="test-status">passed</div><div class="test-duration">0.382s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Auth API &gt; POST /auth/register</div><div class="test-title">should not allow duplicate email registration</div><div class="test-status">passed</div><div class="test-duration">0.184s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Auth API &gt; POST /auth/register</div><div class="test-title">should fail validation for missing fields</div><div class="test-status">passed</div><div class="test-duration">0.006s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Auth API &gt; POST /auth/login</div><div class="test-title">should login an existing user</div><div class="test-status">passed</div><div class="test-duration">0.082s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Auth API &gt; POST /auth/login</div><div class="test-title">should fail with wrong password</div><div class="test-status">passed</div><div class="test-duration">0.08s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Auth API &gt; POST /auth/login</div><div class="test-title">should fail with non-existent email</div><div class="test-status">passed</div><div class="test-duration">0.006s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Auth API &gt; POST /auth/login</div><div class="test-title">should fail validation with missing fields</div><div class="test-status">passed</div><div class="test-duration">0.008s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Auth API &gt; Middleware: requireAuth</div><div class="test-title">should allow access to edit with valid token</div><div class="test-status">passed</div><div class="test-duration">0.025s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Auth API &gt; Middleware: requireAuth</div><div class="test-title">should reject request without Authorization header</div><div class="test-status">passed</div><div class="test-duration">0.008s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Auth API &gt; Middleware: requireAuth</div><div class="test-title">should reject request with malformed header</div><div class="test-status">passed</div><div class="test-duration">0.005s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Auth API &gt; Middleware: requireAuth</div><div class="test-title">should reject expired token</div><div class="test-status">passed</div><div class="test-duration">0.007s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Auth API &gt; Middleware: requireAuth</div><div class="test-title">should reject invalid token</div><div class="test-status">passed</div><div class="test-duration">0.005s</div></div></div></div></details><details id="suite-2" class="suite-container" open=""><summary class="suite-info"><div class="suite-path">C:\Users\HP\Desktop\Developer Things\Self-Work\Learning\Express\Event-Ease\tests\event.test.js</div><div class="suite-time">1.145s</div></summary><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">Event API test cases</div><div class="test-title">Should get all the events (empty array initially)</div><div class="test-status">passed</div><div class="test-duration">0.008s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Event API test cases</div><div class="test-title">Should not post an event without token</div><div class="test-status">passed</div><div class="test-duration">0.005s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Event API test cases</div><div class="test-title">Should post an event with token1</div><div class="test-status">passed</div><div class="test-duration">0.018s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Event API test cases</div><div class="test-title">Should get event by ID</div><div class="test-status">passed</div><div class="test-duration">0.006s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Event API test cases</div><div class="test-title">Should return 404 when event not found</div><div class="test-status">passed</div><div class="test-duration">0.006s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Event API test cases</div><div class="test-title">Should return 500/400 for non-numeric ID</div><div class="test-status">passed</div><div class="test-duration">0.113s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Event API test cases</div><div class="test-title">Should update event fully with owner (token1)</div><div class="test-status">passed</div><div class="test-duration">0.013s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Event API test cases</div><div class="test-title">Should not allow full update by non-owner (token2)</div><div class="test-status">passed</div><div class="test-duration">0.009s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Event API test cases</div><div class="test-title">Should update event partially with owner (token1)</div><div class="test-status">passed</div><div class="test-duration">0.018s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Event API test cases</div><div class="test-title">Should not patch with empty body</div><div class="test-status">passed</div><div class="test-duration">0.009s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Event API test cases</div><div class="test-title">Should not allow patch by non-owner (token2)</div><div class="test-status">passed</div><div class="test-duration">0.007s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Event API test cases</div><div class="test-title">Should delete event with owner (token1)</div><div class="test-status">passed</div><div class="test-duration">0.015s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Event API test cases</div><div class="test-title">Should not delete already deleted event</div><div class="test-status">passed</div><div class="test-duration">0.009s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Event API test cases</div><div class="test-title">Should not allow delete by non-owner (token2)</div><div class="test-status">passed</div><div class="test-duration">0.023s</div></div></div></div></details><details id="suite-3" class="suite-container" open=""><summary class="suite-info"><div class="suite-path">C:\Users\HP\Desktop\Developer Things\Self-Work\Learning\Express\Event-Ease\tests\user.test.js</div><div class="suite-time">0.871s</div></summary><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">User API</div><div class="test-title">Should add an user</div><div class="test-status">passed</div><div class="test-duration">0.114s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">User API</div><div class="test-title">Should not add an user as email is missing in fields</div><div class="test-status">passed</div><div class="test-duration">0.005s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">User API</div><div class="test-title">Should not return password in response</div><div class="test-status">passed</div><div class="test-duration">0.082s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">User API</div><div class="test-title">Should return all users</div><div class="test-status">passed</div><div class="test-duration">0.01s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">User API</div><div class="test-title">Should return Users with their events</div><div class="test-status">passed</div><div class="test-duration">0.008s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">User API</div><div class="test-title">Should fetch User with specific ID</div><div class="test-status">passed</div><div class="test-duration">0.007s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">User API</div><div class="test-title">Should not fetch a user with id as no user present with this id</div><div class="test-status">passed</div><div class="test-duration">0.007s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">User API</div><div class="test-title">Should Patch (Partial update) the user</div><div class="test-status">passed</div><div class="test-duration">0.013s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">User API</div><div class="test-title">Should not Patch (Partial update) the user</div><div class="test-status">passed</div><div class="test-duration">0.004s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">User API</div><div class="test-title">Should not Patch (Partial update) the user, Incorrect Role</div><div class="test-status">passed</div><div class="test-duration">0.004s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">User API</div><div class="test-title">Should Update (full update) the user</div><div class="test-status">passed</div><div class="test-duration">0.081s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">User API</div><div class="test-title">Should not Update (full update) the user</div><div class="test-status">passed</div><div class="test-duration">0.007s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">User API</div><div class="test-title">Should not Update (full update) the user, Incorrect Role</div><div class="test-status">passed</div><div class="test-duration">0.004s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">User API</div><div class="test-title">Should not delete the user, as userID not present</div><div class="test-status">passed</div><div class="test-duration">0.102s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">User API</div><div class="test-title">Should delete both the users created in test, as userID present</div><div class="test-status">passed</div><div class="test-duration">0.022s</div></div></div></div></details></main></body></html>

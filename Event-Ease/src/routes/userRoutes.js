@@ -6,9 +6,10 @@ import {
   updateUserPartial,
   updateUserFull,
   deleteUser,
+  getUsersWithEvents,
 } from "../controllers/userController.js";
 import { validate } from "../middleware/validate.js";
-import { userSchema } from "../schemas/userSchema.js";
+import { userSchema, updateUserSchema } from "../schemas/userSchema.js";
 
 const router = express.Router();
 
@@ -45,6 +46,19 @@ const router = express.Router();
  */
 
 router.route("/").get(getUsers).post(validate(userSchema), addUser);
+
+/**
+ * @swagger
+ * /user/events:
+ *   get:
+ *     summary: Get all users with Events
+ *     tags: [Users]
+ *     responses:
+ *       200:
+ *         description: List of users and their Events
+ */
+
+router.route("/events").get(getUsersWithEvents);
 
 /**
  * @swagger
@@ -117,7 +131,7 @@ router.route("/").get(getUsers).post(validate(userSchema), addUser);
 router
   .route("/:id")
   .get(getUserByID)
-  .patch(validate(userSchema), updateUserPartial)
+  .patch(validate(updateUserSchema), updateUserPartial)
   .put(validate(userSchema), updateUserFull)
   .delete(deleteUser);
 

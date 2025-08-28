@@ -16,9 +16,19 @@ export const requireAuth = (req, res, next) => {
 
     const payload = jwt.verify(token, process.env.JWT_SECRET);
 
+    console.log("Decoded payload:", payload);
+
     req.user = { id: payload.sub, role: payload.role };
+    console.log("req.user set to:", req.user);
     next();
   } catch (error) {
+    if (error.name === "TokenExpiredError") {
+      error.statusCode = 401;
+      error.message = "Token has expired, please login again";
+    } else if (error.name === "JsonWebTokenError") {
+      error.statusCode = 401;
+      error.message = "Invalid authentication token";
+    }
     next(error);
   }
 };

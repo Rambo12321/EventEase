@@ -3,7 +3,7 @@ import prisma from "../utils/prismaClient.js";
 
 export const getAllEvents = async (req, res, next) => {
   try {
-    const events = await prisma.Event.findMany({
+    const events = await prisma.event.findMany({
       include: { user: true },
     });
     res.status(200).json(events);
@@ -26,7 +26,7 @@ export const getEventById = async (req, res, next) => {
       throw err;
     }
 
-    const event = await prisma.Event.findUnique({
+    const event = await prisma.event.findUnique({
       where: { id: parseInt(id) },
       include: { user: true },
     });
@@ -46,6 +46,8 @@ export const getEventById = async (req, res, next) => {
 export const addEvent = async (req, res, next) => {
   try {
     const { title, description, date, location } = req.body || {};
+
+    console.log("requestedUser -> ", req.user);
 
     // NO NEED TO CHECK THIS AS NOW WE ARE SENDING REQUEST FROM USER(LOGGED IN)
     // if (!userId) {
@@ -71,13 +73,13 @@ export const addEvent = async (req, res, next) => {
     //   throw err;
     // }
 
-    const event = await prisma.Event.create({
+    const event = await prisma.event.create({
       data: {
         title,
         description,
         date,
         location,
-        userId: req.user.id,
+        userId: parseInt(req.user.id),
       },
       include: { user: true },
     });
@@ -124,7 +126,7 @@ export const updateEventFull = async (req, res, next) => {
 
     await verifyUser(id, req.user.id, req.user.role);
 
-    const updatedEvent = await prisma.Event.update({
+    const updatedEvent = await prisma.event.update({
       where: { id: parseInt(id) },
       data: {
         location,
@@ -176,7 +178,7 @@ export const updateEventPartial = async (req, res, next) => {
 
     await verifyUser(id, req.user.id, req.user.role);
 
-    const updatedEvent = await prisma.Event.update({
+    const updatedEvent = await prisma.event.update({
       where: { id: parseInt(id) },
       data: {
         ...(title !== (undefined || "") && { title }),
@@ -206,7 +208,7 @@ export const deleteEvent = async (req, res, next) => {
 
     await verifyUser(id, req.user.id, req.user.role);
 
-    const deletedEvent = await prisma.Event.delete({
+    const deletedEvent = await prisma.event.delete({
       where: { id: parseInt(id) },
     });
 

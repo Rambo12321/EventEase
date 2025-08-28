@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node server.js",
     "dev": "tsx watch server.js",
-    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --runInBand"
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --runInBand",
+    "test:debug": "cross-env NODE_OPTIONS=--experimental-vm-modules --inspect-brk jest --runInBand"
   },
   "keywords": [],
   "author": "",
@@ -20,13 +21,27 @@
     "morgan": "^1.10.1",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
-    "zod": "^4.0.17"
+    "zod": "^4.0.17",
+    "prisma": "^6.14.0"
   },
   "devDependencies": {
     "cross-env": "^10.0.0",
     "jest": "^30.0.5",
+    "jest-html-reporter": "^4.3.0",
     "prisma": "^6.14.0",
     "supertest": "^7.1.4",
     "tsx": "^4.20.3"
+  },
+  "jest": {
+    "reporters": [
+      "default",
+      [
+        "jest-html-reporter",
+        {
+          "pageTitle": "Test Report",
+          "outputPath": "test-report.html"
+        }
+      ]
+    ]
   }
 }
