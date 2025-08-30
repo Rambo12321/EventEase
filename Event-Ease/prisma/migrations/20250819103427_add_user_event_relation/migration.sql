@@ -8,7 +8,7 @@
 ALTER TABLE `event` ADD COLUMN `userId` INTEGER NOT NULL;
 
 -- AddForeignKey
-ALTER TABLE `Event` ADD CONSTRAINT `Event_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `event` ADD CONSTRAINT `event_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `user`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- RenameIndex
 ALTER TABLE `user` RENAME INDEX `user_email_key` TO `User_email_key`;

@@ -29,7 +29,7 @@ app.use(express.json());
 app.use(morgan("dev"));
 app.use(morgan("combined", { stream: accessLogStream }));
 
-// in app.js (or where you define routes)
+// Heatlh check
 app.get("/healthz", (_req, res) => res.status(200).send("ok"));
 
 //public routes

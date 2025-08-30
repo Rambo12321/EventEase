@@ -13,18 +13,18 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
+model user {
   id Int @id @default(autoincrement())
   name String 
   email String @unique
   password String
   role Role @default(USER)
-  events Event[]              // Since a user can have many events
+  events event[]              // Since a user can have many events
   createdAT DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
 }
 
-model Event {
+model event {
   id Int @id @default(autoincrement())
   title String
   description String?              // ? makes it optional
@@ -35,7 +35,7 @@ model Event {
 
   //Relation field
   userId Int
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user user @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 enum Role{
