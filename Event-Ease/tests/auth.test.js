@@ -2,15 +2,19 @@ import request from "supertest";
 import jwt from "jsonwebtoken";
 import app from "../app.js";
 import prisma from "../src/utils/prismaClient.js";
+import { randomUUID } from "crypto";
 
 describe("Auth API", () => {
-  let testEmail = `testuser_${Date.now()}@mail.com`;
+  let testEmail = `testuser_${randomUUID().slice(0, 8)}@mail.com`;
   let testPassword = "Password123!";
   let token, usrId;
 
   afterAll(async () => {
     await prisma.user.deleteMany({
       where: { email: { contains: "testuser_" } },
+    });
+    await prisma.event.deleteMany({
+      where: { title: { contains: "React Conf" } },
     });
     await prisma.$disconnect();
   });
