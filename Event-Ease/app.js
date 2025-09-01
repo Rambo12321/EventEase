@@ -3,6 +3,7 @@ import morgan from "morgan";
 import dotenv from "dotenv";
 import fs from "fs";
 import path from "path";
+import cors from "cors";
 
 // import apiKeyAuth from "./src/middleware/middleware.js";
 import authRoutes from "./src/routes/authRoutes.js";
