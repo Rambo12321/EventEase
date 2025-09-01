@@ -15,6 +15,8 @@ import { swaggerDocs } from "./src/utils/swagger.js";
 dotenv.config();
 const app = express();
 
+app.use(cors({ origin: "http://localhost:3000", Credentials: true }));
+
 const logDirectory = path.join(process.cwd(), "logs");
 if (!fs.existsSync(logDirectory)) {
   fs.mkdirSync(logDirectory);
