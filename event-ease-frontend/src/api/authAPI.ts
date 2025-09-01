@@ -1,11 +1,11 @@
-import { userInterface } from "@/interfaces/userInterface";
+import { userTokenInterface } from "@/interfaces/userInterface";
 import { apiRequest } from "@/lib/apiClient";
 
 export const registerUser = async (data: {
   name: string;
   email: string;
   password: string;
-}): Promise<userInterface> => {
+}): Promise<userTokenInterface> => {
   return apiRequest(`/auth/register`, {
     method: "POST",
     body: JSON.stringify(data),
@@ -15,7 +15,7 @@ export const registerUser = async (data: {
 export const loginUser = async (data: {
   email: string;
   password: string;
-}): Promise<userInterface> => {
+}): Promise<userTokenInterface> => {
   return apiRequest(`/auth/login`, {
     method: "POST",
     body: JSON.stringify(data),

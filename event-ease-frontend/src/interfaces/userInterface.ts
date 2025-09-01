@@ -1,4 +1,4 @@
-export interface userInterface {
+export interface userTokenInterface {
   token: string;
   user: {
     id: string;
@@ -6,4 +6,11 @@ export interface userInterface {
     email: string;
     role: string;
   };
+}
+
+export interface userInterface {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
 }
