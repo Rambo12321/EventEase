@@ -1,42 +1,36 @@
 "use client";
 
-import { useState } from "react";
-import { registerUser } from "@/api/authAPI";
-import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
+import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import { loginUser } from "@/api/authAPI";
+import { useState } from "react";
 
-const signupSchema = z.object({
-  name: z.string().min(3, "Name must be of atleast 3 Characters"),
+const loginSchema = z.object({
   email: z.email(),
-  password: z.string().min(6, "Password Must be of atlease 6 Characters"),
+  password: z.string().min(3, "Password is of atleast 6 characters"),
 });
 
-type SignupData = z.infer<typeof signupSchema>;
+type loginData = z.infer<typeof loginSchema>;
 
-const SignupFrom = () => {
+const LoginForm = () => {
   const [serverError, setServerError] = useState<string | null>(null);
 
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<SignupData>({
-    resolver: zodResolver(signupSchema),
-  });
+  } = useForm<loginData>({ resolver: zodResolver(loginSchema) });
 
   const router = useRouter();
 
-  const onSubmit = async (data: SignupData) => {
+  const onSubmit = async (data: loginData) => {
     try {
       setServerError(null);
-
-      const res = await registerUser(data);
-
+      const res = await loginUser(data);
       localStorage.setItem("token", res.token);
-
-      router.push("/login");
+      router.push("/dashboard");
     } catch (error: unknown) {
       console.log("Error occoured with signup -> ", error);
       setServerError(error instanceof Error ? error.message : "Signup Failed");
@@ -45,20 +39,9 @@ const SignupFrom = () => {
 
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
       className="space-y-4 mt-6 ml-8 mr-8 mb-5 flex-col"
+      onSubmit={handleSubmit(onSubmit)}
     >
-      <>
-        <input
-          {...register("name")}
-          type="text"
-          placeholder="Name"
-          className="w-full px-4 py-2 rounded-lg border-2 border-amber-700 text-emerald-950"
-        />
-        {errors.name && (
-          <p className="text-red-500 text-sm">{errors.name.message}</p>
-        )}
-      </>
       <>
         <input
           {...register("email")}
@@ -70,6 +53,7 @@ const SignupFrom = () => {
           <p className="text-red-500 text-sm">{errors.email.message}</p>
         )}
       </>
+
       <>
         <input
           {...register("password")}
@@ -95,4 +79,4 @@ const SignupFrom = () => {
   );
 };
 
-export default SignupFrom;
+export default LoginForm;
