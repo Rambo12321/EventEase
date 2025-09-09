@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { loginUser } from "@/api/authAPI";
 import { useState } from "react";
+import { setCookie } from "cookies-next";
 
 const loginSchema = z.object({
   email: z.email(),
@@ -29,7 +30,11 @@ const LoginForm = () => {
     try {
       setServerError(null);
       const res = await loginUser(data);
-      localStorage.setItem("token", res.token);
+      //localStorage.setItem("token", res.token);
+      setCookie("token", res.token, {
+        maxAge: 60 * 60,
+        path: "/",
+      });
       router.push("/dashboard");
     } catch (error: unknown) {
       console.log("Error occoured with signup -> ", error);

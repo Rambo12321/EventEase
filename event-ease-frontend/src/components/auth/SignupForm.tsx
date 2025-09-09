@@ -46,7 +46,7 @@ const SignupFrom = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="space-y-4 mt-6 ml-8 mr-8 mb-5 flex-col"
+      className="space-y-4 mt-6 ml-8 mr-8 mb-5 flex-none justify-center align-middle"
     >
       <>
         <input
@@ -86,7 +86,7 @@ const SignupFrom = () => {
 
       <button
         type="submit"
-        className="w-full bg-blue-600 text-amber-100 rounded-md p-2 m-auto"
+        className="w-[200px] bg-blue-600 text-amber-100 rounded-md block p-2 m-auto hover:bg-black"
         disabled={isSubmitting}
       >
         {isSubmitting ? "Signing Up!" : "Sign Up!"}

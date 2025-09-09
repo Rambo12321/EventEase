@@ -24,3 +24,11 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.navbarItems {
+  @apply text-xl md:text-2xl lg:text-3xl transition-all duration-400;
+}
+
+.navbarBg {
+  @apply bg-[url('/galaxy.jpg')] bg-cover bg-center flex;
+}
