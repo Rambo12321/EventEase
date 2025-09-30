@@ -15,7 +15,7 @@ export const middleware = (req: NextRequest) => {
   try {
     jwt.verify(token, SECRET_KEY);
 
-    NextResponse.redirect(new URL("login", req.url));
+    NextResponse.redirect(new URL("/login", req.url));
   } catch (error: unknown) {
     console.log("Encountered Error -> ", error);
 

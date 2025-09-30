@@ -6,7 +6,8 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { loginUser } from "@/api/authAPI";
 import { useState } from "react";
-import { setCookie } from "cookies-next";
+import { useDispatch } from "react-redux";
+import { setCredentials } from "@/store/authSlice";
 
 const loginSchema = z.object({
   email: z.email(),
@@ -24,6 +25,7 @@ const LoginForm = () => {
     formState: { errors, isSubmitting },
   } = useForm<loginData>({ resolver: zodResolver(loginSchema) });
 
+  const dispatch = useDispatch();
   const router = useRouter();
 
   const onSubmit = async (data: loginData) => {
@@ -31,10 +33,11 @@ const LoginForm = () => {
       setServerError(null);
       const res = await loginUser(data);
       //localStorage.setItem("token", res.token);
-      setCookie("token", res.token, {
-        maxAge: 60 * 60,
-        path: "/",
-      });
+      // setCookie("token", res.token, {
+      //   maxAge: 60 * 60,
+      //   path: "/",
+      // });
+      dispatch(setCredentials(res));
       router.push("/dashboard");
     } catch (error: unknown) {
       console.log("Error occoured with signup -> ", error);
