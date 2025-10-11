@@ -8,6 +8,7 @@ import { loginUser } from "@/api/authAPI";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "@/store/authSlice";
+import { setCookie } from "cookies-next";
 
 const loginSchema = z.object({
   email: z.email(),
@@ -32,12 +33,10 @@ const LoginForm = () => {
     try {
       setServerError(null);
       const res = await loginUser(data);
-      //localStorage.setItem("token", res.token);
-      // setCookie("token", res.token, {
-      //   maxAge: 60 * 60,
-      //   path: "/",
-      // });
-      dispatch(setCredentials(res));
+
+      dispatch(setCredentials({ token: res.token, user: res.user }));
+      setCookie("token", res.token, { maxAge: 60 * 60, path: "/" });
+      setCookie("user", res.user);
       router.push("/dashboard");
     } catch (error: unknown) {
       console.log("Error occoured with signup -> ", error);
@@ -55,7 +54,8 @@ const LoginForm = () => {
           {...register("email")}
           type="email"
           placeholder="Email"
-          className="w-full px-4 py-2 rounded-lg border-2 border-amber-700 text-emerald-950"
+          className="w-full px-4 py-2 rounded-lg border-2 border-amber-700 text-blue-700"
+          autoComplete="email"
         />
         {errors.email && (
           <p className="text-red-500 text-sm">{errors.email.message}</p>
@@ -67,7 +67,8 @@ const LoginForm = () => {
           {...register("password")}
           type="password"
           placeholder="Password"
-          className="w-full px-4 py-2 rounded-lg border-2 border-amber-700 text-emerald-950"
+          className="w-full px-4 py-2 rounded-lg border-2 border-amber-700 text-blue-700"
+          autoComplete="password"
         />
         {errors.password && (
           <p className="text-red-500 text-sm">{errors.password.message}</p>
@@ -78,10 +79,25 @@ const LoginForm = () => {
 
       <button
         type="submit"
-        className="w-full bg-blue-600 text-amber-100 rounded-md p-2 m-auto"
+        className={`w-full bg-blue-600 text-amber-100 rounded-md p-2 hover:bg-black hover:text-amber-50 font-bold ${
+          isSubmitting ? `bg-amber-950!` : ""
+        }`}
         disabled={isSubmitting}
       >
-        {isSubmitting ? "Signing Up!" : "Sign Up!"}
+        {isSubmitting ? "Loging In!" : "Login!"}
+      </button>
+
+      <div className="text-center text-amber-700 mb-0.5">
+        Do not have an existing account with us?
+      </div>
+      <button
+        className="w-full bg-cyan-800 font-bold rounded-md p-1.5 hover:bg-fuchsia-900 hover:text-black"
+        type="button"
+        onClick={() => {
+          router.push("/signup");
+        }}
+      >
+        Sign Up!
       </button>
     </form>
   );

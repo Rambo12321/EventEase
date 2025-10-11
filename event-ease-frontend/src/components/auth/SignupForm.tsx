@@ -53,7 +53,8 @@ const SignupFrom = () => {
           {...register("name")}
           type="text"
           placeholder="Name"
-          className="w-full px-4 py-2 rounded-lg border-2 border-amber-700 text-emerald-950"
+          className="w-full px-4 py-2 rounded-lg border-2 border-amber-700 text-white"
+          autoComplete="name"
         />
         {errors.name && (
           <p className="text-red-500 text-sm">{errors.name.message}</p>
@@ -64,7 +65,8 @@ const SignupFrom = () => {
           {...register("email")}
           type="email"
           placeholder="Email"
-          className="w-full px-4 py-2 rounded-lg border-2 border-amber-700 text-emerald-950"
+          className="w-full px-4 py-2 rounded-lg border-2 border-amber-700 text-white"
+          autoComplete="email"
         />
         {errors.email && (
           <p className="text-red-500 text-sm">{errors.email.message}</p>
@@ -75,7 +77,8 @@ const SignupFrom = () => {
           {...register("password")}
           type="password"
           placeholder="Password"
-          className="w-full px-4 py-2 rounded-lg border-2 border-amber-700 text-emerald-950"
+          className="w-full px-4 py-2 rounded-lg border-2 border-amber-700 text-black"
+          autoComplete="password"
         />
         {errors.password && (
           <p className="text-red-500 text-sm">{errors.password.message}</p>

@@ -3,28 +3,28 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-import { selectCurrentUser, selectAuthToken, logout } from "@/store/authSlice";
+import { selectAuthToken, logout } from "@/store/authSlice";
 import { useSelector, useDispatch } from "react-redux";
+import { deleteCookie } from "cookies-next";
 
 const Navbar = () => {
-  const user = useSelector(selectCurrentUser);
   const token = useSelector(selectAuthToken);
   const router = useRouter();
   const dispatch = useDispatch();
 
-  if (!token) {
-    router.push("/login");
-  }
-
   const handleClick = () => {
     dispatch(logout());
+
+    deleteCookie("user");
+    deleteCookie("token");
+
     router.push("/login");
   };
 
   return (
     <>
       <div className="navbarBg">
-        <div className=" mr-auto">
+        <div className="mr-auto">
           <ul className="flex justify-between">
             <li>
               <Link href={token ? "/dashboard" : "/signup"}>
@@ -50,14 +50,13 @@ const Navbar = () => {
 
         <div className="p-1 w-[150px] flex">
           <button
-            className="m-auto p-2 cursor-pointer text-green-600 font-bold navbarItems"
+            className="m-auto mt-0 mb-0 p-2 cursor-pointer hover:bg-blue-300/20! rounded-2xl text-cyan-100 font-bold navbarItems hover:scale-75"
             onClick={handleClick}
           >
             Logout!
           </button>
         </div>
       </div>
-      <div className="text-3xl text-amber-700">Hello ${user?.name}</div>
     </>
   );
 };

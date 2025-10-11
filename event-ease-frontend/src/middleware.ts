@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import jwt from "jsonwebtoken";
+import { jwtVerify } from "jose";
 
 const SECRET_KEY = process.env.JWT_SECRET!;
 
@@ -13,9 +13,9 @@ export const middleware = (req: NextRequest) => {
   }
 
   try {
-    jwt.verify(token, SECRET_KEY);
+    jwtVerify(token, new TextEncoder().encode(SECRET_KEY));
 
-    NextResponse.redirect(new URL("/login", req.url));
+    return NextResponse.next();
   } catch (error: unknown) {
     console.log("Encountered Error -> ", error);
 
@@ -26,5 +26,5 @@ export const middleware = (req: NextRequest) => {
 };
 
 export const config = {
-  matcher: ["/dashboard"],
+  matcher: ["/signup"],
 };
