@@ -6,6 +6,8 @@ import {
   updateEventFull,
   updateEventPartial,
   deleteEvent,
+  getAllPublicEvents,
+  getUserEvents,
 } from "../controllers/eventController.js";
 import { requireAuth } from "../middleware/auth.js";
 import { validate } from "../middleware/validate.js";
@@ -53,6 +55,41 @@ router
   .route("/")
   .get(getAllEvents)
   .post(requireAuth, validate(eventSchema), addEvent);
+
+/**
+ * @swagger
+ * /event/global:
+ *   get:
+ *     summary: Get all global events
+ *     tags: [Events]
+ *     responses:
+ *       200:
+ *         description: List of global events
+ *       404:
+ *         description: No global events found
+ */
+router.route("/global").get(getAllPublicEvents);
+
+/**
+ * @swagger
+ * /event/user:
+ *   get:
+ *     summary: Get All Events of an user
+ *     tags: [Events]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: The userId
+ *     responses:
+ *       200:
+ *         description: Event details
+ *       404:
+ *         description: No Event found
+ */
+router.route("/user").get(getUserEvents);
 
 /**
  * @swagger

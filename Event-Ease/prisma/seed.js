@@ -20,6 +20,22 @@ async function main() {
     },
   });
 
+  const newUsers = [];
+
+  for (let i = 3; i < 7; i++) {
+    const user = await prisma.user.create({
+      data: {
+        name: `user${i}`,
+        email: `emailntu${i}@gmail.com`,
+        password: "test1234",
+        role: "ORGANIZER",
+      },
+    });
+    newUsers.push(user);
+  }
+
+  const allUsers = [user1, user2, ...newUsers];
+
   // Create events for Alice
   await prisma.event.createMany({
     data: [
@@ -27,12 +43,18 @@ async function main() {
         title: "React Workshop",
         description: "Learn React basics in 2 hours",
         date: new Date("2025-09-10"),
+        location: "Pune",
+        bannerImage: null,
+        type: "Global",
         userId: user1.id,
       },
       {
         title: "Database 101",
         description: "Intro to SQL and databases",
         date: new Date("2025-09-15"),
+        location: "Noida",
+        bannerImage: null,
+        type: "Private",
         userId: user1.id,
       },
     ],
@@ -44,9 +66,36 @@ async function main() {
       title: "Admin Conference",
       description: "Event management strategies",
       date: new Date("2025-09-20"),
+      location: "Goa",
+      bannerImage: null,
+      type: "Private",
       userId: user2.id,
     },
   });
+
+  for (const user of allUsers) {
+    const events = [];
+
+    for (let i = 0; i < 25; i++) {
+      events.push({
+        title: `Event ${i} by ${user.name}`,
+        description: `This is event number ${i} created by ${user.name}.`,
+        date: new Date(
+          2026,
+          Math.floor(Math.random() * 12),
+          Math.floor(Math.random() * 28) + 1
+        ),
+        location: ["Pune", "Delhi", "Mumbai", "Meerut", "Noida", "Bangalore"][
+          Math.floor(Math.random() * 6)
+        ],
+        bannerImage: null,
+        type: ["Global", "Private"][Math.floor(Math.random() * 2)],
+        userId: user.id,
+      });
+    }
+    await prisma.event.createMany({ data: events });
+    console.log("25 events created for user -> ", user.name);
+  }
 }
 
 main()

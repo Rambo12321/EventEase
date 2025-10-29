@@ -31,6 +31,8 @@ model event {
   description String?              // ? makes it optional
   date DateTime
   location String
+  bannerImage String?
+  type Type @default(Private)
   createdAt DateTime @default(now())      // handled automatically
   updatedAt DateTime @updatedAt           // handled automatically
 
@@ -43,4 +45,9 @@ enum Role{
   USER
   ORGANIZER
   ADMIN
+}
+
+enum Type{
+  Private
+  Global
 }

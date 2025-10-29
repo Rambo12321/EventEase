@@ -50,6 +50,8 @@ const options = {
               format: "date-time",
               example: "2025-12-02T10:00:00Z",
             },
+            type: { type: "string", example: "Private or Global" },
+            bannerImage: { type: "string", example: "Provide an image url" },
           },
         },
         Event: {
@@ -68,6 +70,8 @@ const options = {
               format: "date-time",
               example: "2025-12-01T10:00:00Z",
             },
+            type: { type: "string", example: "Private or Global" },
+            bannerImage: { type: "string", example: "Provide an image url" },
             userId: { type: "integer", example: 5 },
           },
         },

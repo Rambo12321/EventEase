@@ -11,6 +11,9 @@ export const eventSchema = z.object({
   date: z.iso.datetime().refine((d) => new Date(d) > new Date(), {
     message: "Event Date must be in future",
   }),
+  type: z.enum(["Private", "Global"], {
+    message: "Value must be either Private or Global",
+  }),
 });
 
 export const updateEventSchema = eventSchema.partial();

@@ -45,7 +45,8 @@ export const getEventById = async (req, res, next) => {
 
 export const addEvent = async (req, res, next) => {
   try {
-    const { title, description, date, location } = req.body || {};
+    const { title, description, date, location, type, bannerImage } =
+      req.body || {};
 
     console.log("requestedUser -> ", req.user);
 
@@ -79,6 +80,8 @@ export const addEvent = async (req, res, next) => {
         description,
         date,
         location,
+        bannerImage,
+        type,
         userId: parseInt(req.user.id),
       },
       include: { user: true },
@@ -99,7 +102,8 @@ export const updateEventFull = async (req, res, next) => {
       throw err;
     }
 
-    const { title, description, date, location } = req.body || {};
+    const { title, description, date, location, bannerImage, type } =
+      req.body || {};
 
     // if (!userId) {
     //   const err = new Error(`"UserId" must be provided to Update event Full`);
@@ -133,6 +137,8 @@ export const updateEventFull = async (req, res, next) => {
         date,
         title,
         ...(description !== "" && { description }),
+        bannerImage,
+        type,
         userId: req.user.id,
       },
     });
@@ -152,7 +158,8 @@ export const updateEventPartial = async (req, res, next) => {
       throw err;
     }
 
-    const { title, description, date, location } = req.body || {};
+    const { title, description, date, location, bannerImage, type } =
+      req.body || {};
 
     // if (!userId) {
     //   const err = new Error(`"userId" not provided`);
@@ -168,9 +175,9 @@ export const updateEventPartial = async (req, res, next) => {
     //   throw err;
     // }
 
-    if (!title && !date && !location && !description) {
+    if (!title && !date && !location && !description && !bannerImage && !type) {
       const err = new Error(
-        `"location" , "date", "title", "description must be provided to update event`
+        `"location" , "date", "title", "description", "bannerImage" or "type" must be provided to update event`
       );
       err.statusCode = 401;
       throw err;
@@ -185,6 +192,8 @@ export const updateEventPartial = async (req, res, next) => {
         ...(description !== (undefined || "") && { description }),
         ...(location !== (undefined || "") && { location }),
         ...(date !== (undefined || "") && { date }),
+        ...(bannerImage !== (undefined || "") && { bannerImage }),
+        ...(type !== (undefined || "") && { type }),
         userId: req.user.id,
       },
     });
@@ -201,7 +210,7 @@ export const deleteEvent = async (req, res, next) => {
     const id = req.params.id || req.query.id || {};
 
     if (!id) {
-      const err = new Error("id is required to get event by Id");
+      const err = new Error("id is required to remove event");
       err.statusCode = 401;
       throw err;
     }
@@ -215,6 +224,49 @@ export const deleteEvent = async (req, res, next) => {
     res
       .status(200)
       .json({ message: `User deleted event id : ${deletedEvent.id}` });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getAllPublicEvents = async (req, res, next) => {
+  try {
+    const allPublicEvents = await prisma.event.findMany({
+      where: { type: "Global" },
+    });
+
+    if (!allPublicEvents) {
+      const err = new Error("Unable to find any public events");
+      err.statusCode = 404;
+      throw err;
+    }
+
+    return res.status(200).json(allPublicEvents);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getUserEvents = async (req, res, next) => {
+  try {
+    const id = req.params.id || req.query.id;
+
+    if (!id) {
+      const err = new Error("User id not found in request ");
+      err.statusCode = 404;
+      throw err;
+    }
+
+    const userEvents = await prisma.event.findMany({
+      where: { userId: parseInt(id) },
+    });
+
+    if (!userEvents || userEvents.length < 1) {
+      const err = new Error("Unable to get any events from this user -> ", id);
+      err.statusCode = 404;
+      throw err;
+    }
+    res.status(200).json(userEvents);
   } catch (error) {
     next(error);
   }

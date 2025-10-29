@@ -1,10 +1,17 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Shadows_Into_Light } from "next/font/google";
 import "./globals.css";
 import ContextProvider from "@/components/contextProvider/ContextProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const shadowsLight = Shadows_Into_Light({
+  weight: ["400"],
+  variable: "--font-shadowsLight",
   subsets: ["latin"],
 });
 
@@ -26,7 +33,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${shadowsLight.variable} antialiased`}
       >
         <ContextProvider>{children}</ContextProvider>
       </body>

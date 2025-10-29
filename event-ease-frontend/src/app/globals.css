@@ -10,6 +10,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-shadows: var(--font-shadowsLight);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -22,7 +23,7 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif, rubik;
 }
 
 .navbarItems {
@@ -165,7 +166,33 @@ body {
   animation: moveMed 10s ease-in-out alternate infinite;
 }
 
+@keyframes revealEffect {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-reveal {
+  animation: revealEffect 0.9s ease-in-out both;
+}
+
 @layer components {
+  .eventCard {
+    @apply flex-col flex-none bg-gray-800 border-2 border-amber-50 w-[12rem] h-[16.5rem] justify-around rounded-3xl pt-2 shadow-sm shadow-red-400;
+  }
+
+  .eventCard:hover {
+    transform: scale(1.01);
+    transition: ease-in-out 0.4s;
+
+    @apply cursor-grab;
+  }
+
   .mainButton {
     @apply bg-transparent p-2.5 border-gray-800 border-4 transition-all duration-400 ease-[cubic-bezier(0.68,-0.55,0.265,1.55)] w-[15rem] h-[6rem] rounded-md;
 
