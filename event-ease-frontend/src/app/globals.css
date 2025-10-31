@@ -181,18 +181,32 @@ body {
   animation: revealEffect 0.9s ease-in-out both;
 }
 
+.cardContainer {
+  @apply flex justify-start border-2 gap-12 pl-12 pr-12 border-amber-300 pt-4 pb-4 overflow-x-scroll scroll-smooth;
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  /* scroll-snap-type: x mandatory; */
+}
+
+.cardContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.eventCard {
+  @apply flex-col flex-none bg-gray-800 border-2 border-amber-50 w-[12rem] h-[16.5rem] justify-around rounded-3xl pt-2 shadow-sm shadow-red-400;
+  /* scroll-snap-align: start; */
+}
+
+.eventCard:hover {
+  transform: scale(1.03);
+  transition: ease-in-out 0.4s;
+
+  @apply cursor-grab shadow-2xl shadow-gray-700;
+}
+
 @layer components {
-  .eventCard {
-    @apply flex-col flex-none bg-gray-800 border-2 border-amber-50 w-[12rem] h-[16.5rem] justify-around rounded-3xl pt-2 shadow-sm shadow-red-400;
-  }
-
-  .eventCard:hover {
-    transform: scale(1.01);
-    transition: ease-in-out 0.4s;
-
-    @apply cursor-grab;
-  }
-
   .mainButton {
     @apply bg-transparent p-2.5 border-gray-800 border-4 transition-all duration-400 ease-[cubic-bezier(0.68,-0.55,0.265,1.55)] w-[15rem] h-[6rem] rounded-md;
 
