@@ -10,13 +10,23 @@ import { eventInterface } from "@/interfaces/eventInterface";
 import SkeletonFallback from "@/components/skeletonFallback/SkeletonFallback";
 
 import useAutoHorizontalScroll from "@/hooks/scrolling/useAutoHorizontalScroll";
+import { useRouter } from "next/navigation";
 
 const DashBoardPage = () => {
-  let cardsOnScreen: number;
+  let cardsOnScreen: number = 1;
+
+  const WIDTH_ONE_CARD = 191.99 + 48;
+
+  const router = useRouter();
+
+  console.log("Width of Single card -> ", WIDTH_ONE_CARD);
+
   const user = useSelector(selectCurrentUser) || {
     name: "Rohan Kaushik",
     id: "1",
   };
+
+  console.log("User selected to target info -> ", user);
 
   const [userEvents, setUserEvents] = useState<eventInterface[]>([]);
   const [userEventLoading, setUserEventLoading] = useState<boolean>(true);
@@ -32,6 +42,8 @@ const DashBoardPage = () => {
     setUserEvents(capturedEvents);
   }, [user.id]);
 
+  console.log("Captured user Events -> ", userEvents);
+
   useEffect(() => {
     fetchUserEvents();
     const interval = setInterval(fetchUserEvents, 1000000);
@@ -42,17 +54,30 @@ const DashBoardPage = () => {
 
   if (userEventRef.current) {
     cardsOnScreen =
-      Math.floor(userEventRef.current.clientWidth / (191.99 + 49.667)) + 1;
+      Math.floor(userEventRef.current.clientWidth / WIDTH_ONE_CARD) + 1;
+    console.log("Cards on Screen added -> ", cardsOnScreen);
   }
 
-  useAutoHorizontalScroll(userEventRef, userEvents, 0.5, "right");
+  const widthExtraSection = cardsOnScreen * WIDTH_ONE_CARD;
+  console.log("Width of Exra Section added -> ", widthExtraSection);
 
-  console.log("Captured user Events -> ", userEvents);
-
-  const [globalEvents, setGlobalEvents] = useState<eventInterface[] | null>(
-    null
+  if (userEventRef.current) {
+    userEventRef.current.style.scrollBehavior = "auto";
+    userEventRef.current.scrollLeft = widthExtraSection;
+    userEventRef.current.style.scrollBehavior = "smooth";
+  }
+  useAutoHorizontalScroll(
+    userEventRef,
+    userEvents,
+    0.5,
+    "right",
+    widthExtraSection,
+    cardsOnScreen
   );
+
+  const [globalEvents, setGlobalEvents] = useState<eventInterface[]>([]);
   const [globalEventLoading, setGlobalEventLoading] = useState<boolean>(true);
+  const globalEventRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const fetchGlobalEvents = async () => {
@@ -71,6 +96,23 @@ const DashBoardPage = () => {
     return () => clearInterval(interval);
   }, []);
 
+  if (globalEventRef.current) {
+    const container = globalEventRef.current;
+    container.style.scrollBehavior = "auto";
+    container.scrollLeft =
+      widthExtraSection + 10 * (191.99 + 48) - cardsOnScreen * (191.99 + 48);
+    container.style.scrollBehavior = "smooth";
+  }
+
+  useAutoHorizontalScroll(
+    globalEventRef,
+    globalEvents,
+    0.5,
+    "left",
+    widthExtraSection,
+    cardsOnScreen
+  );
+
   return (
     <div className="h-full bg-[url('/background.svg')] bg-cover bg-center">
       <Navbar />
@@ -79,47 +121,64 @@ const DashBoardPage = () => {
           Hello {user?.name.split(" ")[0]},
         </div>
 
-        <div>User Events</div>
+        <div className="flex pl-10 text-2xl text-yellow-300 font-bold">
+          User Events
+        </div>
         <div ref={userEventRef} className="cardContainer">
           {userEventLoading
             ? Array(5)
                 .fill(null)
                 .map((_, index) => <SkeletonFallback key={index} />)
             : userEvents && userEvents.length > 1
-            ? [...userEvents.slice(0, 10), ...userEvents.slice(0, 10)].map(
-                ({ title, bannerImage, location, date, type }, index) => (
-                  <EventCard
-                    key={index}
-                    title={title}
-                    location={location}
-                    date={date}
-                    type={type}
-                    bannerImage={bannerImage}
-                  />
-                )
-              )
+            ? [
+                ...userEvents.slice(10 - cardsOnScreen, 10),
+                ...userEvents.slice(0, 10),
+                ...userEvents.slice(0, cardsOnScreen),
+              ].map(({ title, bannerImage, location, date, type }, index) => (
+                <EventCard
+                  key={index}
+                  title={title}
+                  location={location}
+                  date={date}
+                  type={type}
+                  bannerImage={bannerImage}
+                />
+              ))
             : "No data found"}
         </div>
 
+        <div className="flex pr-10 mb-8 mt-2">
+          <button
+            onClick={() => {
+              router.push("/events");
+            }}
+            className="allEventButton"
+          >
+            Click to see All user Events
+          </button>
+        </div>
+
         <div>Global Events</div>
-        <div className="cardContainer">
+        <div ref={globalEventRef} className="cardContainer">
           {globalEventLoading
             ? Array(5)
                 .fill(null)
                 .map((_, index) => <SkeletonFallback key={index} />)
             : globalEvents && globalEvents.length > 1
-            ? globalEvents
-                .slice(0, 10)
-                .map(({ id, title, bannerImage, location, date, type }) => (
-                  <EventCard
-                    key={id}
-                    title={title}
-                    bannerImage={bannerImage}
-                    location={location}
-                    date={date}
-                    type={type}
-                  />
-                ))
+            ? [
+                ...globalEvents.slice(10 - cardsOnScreen, 10),
+                ...globalEvents.slice(0, 10),
+                ...globalEvents.slice(0, cardsOnScreen),
+              ].map(({ title, bannerImage, location, date, type }, index) => (
+                <EventCard
+                  key={index}
+                  title={title}
+                  bannerImage={bannerImage}
+                  location={location}
+                  date={date}
+                  type={type}
+                />
+              ))
             : "No Global Events found"}
         </div>
         <footer>Contact me and Email and other site links</footer>

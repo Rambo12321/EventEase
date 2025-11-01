@@ -7,11 +7,15 @@ const useAutoHorizontalScroll = (
   ref: React.RefObject<HTMLDivElement | null>,
   deps: eventInterface[] = [],
   speed: number,
-  direction: "right" | "left" = "right"
+  direction: "right" | "left" = "right",
+  extraSection: number,
+  cardsOnScreen: number
 ) => {
   useEffect(() => {
     const container = ref.current;
     if (!container) return;
+
+    const oneCard = 191.99 + 48;
 
     let rafId: number;
     let paused = false;
@@ -32,21 +36,19 @@ const useAutoHorizontalScroll = (
     const handleScroll = (direct: "right" | "left") => {
       if (
         direct == "right" &&
-        container.scrollLeft >= container.scrollWidth / 2 - 24
+        container.scrollLeft >= container.scrollWidth - 2 * extraSection - 40
       ) {
         container.style.scrollBehavior = "auto";
-        if (container.scrollLeft > container.scrollWidth / 2) {
-          container.scrollLeft =
-            container.scrollLeft - container.scrollWidth / 2 + 24;
-        } else {
-          container.scrollLeft =
-            container.scrollLeft - container.scrollWidth / 2;
-        }
+
+        container.scrollLeft =
+          container.scrollLeft -
+          (container.scrollWidth - 2 * extraSection - 48);
 
         container.style.scrollBehavior = "smooth";
-      } else if (direction === "left" && container.scrollLeft <= 0) {
+      } else if (direct == "left" && container.scrollLeft <= extraSection) {
         container.style.scrollBehavior = "auto";
-        container.scrollLeft = container.scrollWidth - container.clientWidth;
+        container.scrollLeft =
+          extraSection + 10 * oneCard - cardsOnScreen * oneCard;
         container.style.scrollBehavior = "smooth";
       }
       console.log("Scroll triggered in direction -> ", direction);
@@ -56,13 +58,13 @@ const useAutoHorizontalScroll = (
     const resume = () => (paused = false);
 
     const scrollHelper = () => {
-      if (container.scrollLeft > 200) {
+      if (container.scrollLeft >= extraSection + 10 * oneCard) {
         handleScroll("right");
-      } else {
+      } else if (container.scrollLeft < 1) {
         handleScroll("left");
       }
     };
-
+    console.debug("Debugger");
     container.addEventListener("mouseenter", pause);
     container.addEventListener("mouseleave", resume);
 
@@ -77,7 +79,7 @@ const useAutoHorizontalScroll = (
       container.removeEventListener("mouseleave", resume);
       cancelAnimationFrame(rafId);
     };
-  }, [deps, speed, ref, direction]);
+  }, [deps, speed, ref, direction, extraSection, cardsOnScreen]);
 };
 
 export default useAutoHorizontalScroll;

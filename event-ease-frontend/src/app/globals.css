@@ -182,7 +182,7 @@ body {
 }
 
 .cardContainer {
-  @apply flex justify-start border-2 gap-12 pl-12 pr-12 border-amber-300 pt-4 pb-4 overflow-x-scroll scroll-smooth;
+  @apply flex justify-start border-b-2 border-t-2 gap-12 pl-12 pr-12 border-amber-300 pt-4 pb-4 overflow-x-scroll scroll-smooth;
 
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -204,6 +204,14 @@ body {
   transition: ease-in-out 0.4s;
 
   @apply cursor-grab shadow-2xl shadow-gray-700;
+}
+
+.allEventButton {
+  @apply ml-auto bg-black rounded-md pl-1 pr-1 text-xl border-2 border-white;
+}
+
+.allEventButton:hover {
+  scale: 1.1;
 }
 
 @layer components {
