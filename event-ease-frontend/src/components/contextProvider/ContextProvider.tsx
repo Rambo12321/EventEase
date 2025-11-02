@@ -6,8 +6,10 @@ import { useEffect } from "react";
 import { getCookie } from "cookies-next";
 import { usePathname, useRouter } from "next/navigation";
 import { setCredentials } from "@/store/authSlice";
+import Navbar from "../navbar/Navbar";
 
-const PUBLIC_PATHS = ["/login", "/", "/signup", "/dashboard"];
+const PUBLIC_PATHS = ["/login", "/", "/signup", "/dashboard", "/events"];
+const NAVBAR_PAGES = ["/dashboard", "/events"];
 
 const ContextLogic = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useDispatch();
@@ -47,9 +49,15 @@ const ContextLogic = ({ children }: { children: React.ReactNode }) => {
 };
 
 const ContextProvider = ({ children }: { children: React.ReactNode }) => {
+  const pathName = usePathname();
+
+  const navBarTrue = NAVBAR_PAGES.includes(pathName);
   return (
     <Provider store={store}>
-      <ContextLogic>{children}</ContextLogic>
+      <ContextLogic>
+        {navBarTrue && <Navbar />}
+        {children}
+      </ContextLogic>
     </Provider>
   );
 };

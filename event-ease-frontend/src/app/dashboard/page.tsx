@@ -2,7 +2,6 @@
 
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "@/store/authSlice";
-import Navbar from "@/components/navbar/Navbar";
 import { getAllGlobalEvents, getAllUserEvents } from "@/api/eventAPI";
 import EventCard from "@/components/eventCard/EventCard";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -115,13 +114,12 @@ const DashBoardPage = () => {
 
   return (
     <div className="h-full bg-[url('/background.svg')] bg-cover bg-center">
-      <Navbar />
       <div className="w-full m-auto text-center">
         <div className="text-8xl text-amber-700 pt-9 font-shadows font-bold animate-reveal mb-8">
           Hello {user?.name.split(" ")[0]},
         </div>
 
-        <div className="flex pl-10 text-2xl text-yellow-300 font-bold">
+        <div className="flex pl-10 text-4xl text-gray-700 font-bold underline ml-8">
           User Events
         </div>
         <div ref={userEventRef} className="cardContainer">
@@ -154,11 +152,13 @@ const DashBoardPage = () => {
             }}
             className="allEventButton"
           >
-            Click to see All user Events
+            Click to see all User Events
           </button>
         </div>
 
-        <div>Global Events</div>
+        <div className="flex pl-10 text-4xl text-gray-700 font-bold underline ml-8">
+          Global Events
+        </div>
         <div ref={globalEventRef} className="cardContainer">
           {globalEventLoading
             ? Array(5)
@@ -180,6 +180,16 @@ const DashBoardPage = () => {
                 />
               ))
             : "No Global Events found"}
+        </div>
+        <div className="flex pr-10 mb-8 mt-2">
+          <button
+            onClick={() => {
+              router.push("/events");
+            }}
+            className="allEventButton"
+          >
+            Click to see all Global Events
+          </button>
         </div>
         <footer>Contact me and Email and other site links</footer>
       </div>

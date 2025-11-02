@@ -20,11 +20,19 @@ const EventCard = ({ title, bannerImage, location, date, type }: eventCard) => {
       <figure>
         <Image src={bannerImage} alt="Banner Image" width={200} height={200} />
       </figure>
-      <div className="flex justify-around mt-1.5">
+      <div className="flex justify-around mt-1.5 bg-black text-white rounded-2xl">
         <div>{location}</div>
-        <div>{convertedDate}</div>
+        <div> {`-> ${convertedDate}`}</div>
       </div>
-      <div className="mt-1.5">Type: {type}</div>
+      <div className="mt-1.5">
+        <span
+          className={`bg-green-700 rounded-md px-3 py-0.5 ${
+            type === "Global" ? "bg-green-700" : "bg-red-700"
+          }`}
+        >
+          Type: {type}
+        </span>
+      </div>
     </div>
   );
 };

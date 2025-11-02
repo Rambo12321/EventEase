@@ -233,6 +233,7 @@ export const getAllPublicEvents = async (req, res, next) => {
   try {
     const allPublicEvents = await prisma.event.findMany({
       where: { type: "Global" },
+      orderBy: { createdAt: "desc" },
     });
 
     if (!allPublicEvents) {
@@ -259,6 +260,7 @@ export const getUserEvents = async (req, res, next) => {
 
     const userEvents = await prisma.event.findMany({
       where: { userId: parseInt(id) },
+      orderBy: { createdAt: "desc" },
     });
 
     if (!userEvents || userEvents.length < 1) {
