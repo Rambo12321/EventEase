@@ -51,7 +51,7 @@ const useAutoHorizontalScroll = (
           extraSection + 10 * oneCard - cardsOnScreen * oneCard;
         container.style.scrollBehavior = "smooth";
       }
-      console.log("Scroll triggered in direction -> ", direction);
+      console.debug("Scroll triggered in direction -> ", direction);
     };
 
     const pause = () => (paused = true);
