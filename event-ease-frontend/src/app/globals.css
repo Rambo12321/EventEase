@@ -27,7 +27,7 @@ body {
 }
 
 .navbarItems {
-  @apply text-xl rounded-2xl md:text-2xl lg:text-3xl transition-all duration-400;
+  @apply text-lg md:text-xl lg:text-2xl transition-all duration-400;
 }
 
 .navbarItems:hover {
@@ -35,7 +35,7 @@ body {
 }
 
 .navbarBg {
-  @apply bg-[url('/galaxy.jpg')] bg-cover bg-center flex;
+  @apply top-0 z-[500] flex backdrop-blur-lg sticky w-full bg-gray-700/30 shadow-md;
 }
 
 .glassEffect {
@@ -169,7 +169,7 @@ body {
 @keyframes revealEffect {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(-50px);
   }
   to {
     opacity: 1;
@@ -178,7 +178,7 @@ body {
 }
 
 .animate-reveal {
-  animation: revealEffect 0.9s ease-in-out both;
+  animation: revealEffect 1.4s ease-in-out both alternate;
 }
 
 .cardContainer {
