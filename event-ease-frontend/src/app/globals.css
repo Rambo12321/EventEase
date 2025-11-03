@@ -35,7 +35,7 @@ body {
 }
 
 .navbarBg {
-  @apply top-0 z-[500] flex backdrop-blur-lg sticky w-full bg-gray-700/30 shadow-md;
+  @apply top-0 z-[500] flex backdrop-blur-sm bg-white/20 sticky w-full shadow-md;
 }
 
 .glassEffect {
