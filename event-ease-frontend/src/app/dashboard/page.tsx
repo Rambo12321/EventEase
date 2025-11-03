@@ -119,10 +119,13 @@ const DashBoardPage = () => {
           Hello {user?.name.split(" ")[0]},
         </div>
 
-        <div className="flex pl-10 text-4xl text-gray-700 font-bold underline ml-8">
-          User Events
+        <div className="flex pl-10 text-4xl text-yellow-500 font-bold underline ml-8">
+          Your Events
         </div>
-        <div ref={userEventRef} className="cardContainer">
+        <div
+          ref={userEventRef}
+          className="cardContainer glassEffect bg-white/20"
+        >
           {userEventLoading
             ? Array(5)
                 .fill(null)
@@ -156,10 +159,13 @@ const DashBoardPage = () => {
           </button>
         </div>
 
-        <div className="flex pl-10 text-4xl text-gray-700 font-bold underline ml-8">
+        <div className="flex pl-10 text-4xl text-blue-300 font-bold underline ml-8">
           Global Events
         </div>
-        <div ref={globalEventRef} className="cardContainer">
+        <div
+          ref={globalEventRef}
+          className="cardContainer glassEffect bg-white/20"
+        >
           {globalEventLoading
             ? Array(5)
                 .fill(null)

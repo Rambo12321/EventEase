@@ -48,9 +48,9 @@ const Navbar = () => {
           </ul>
         </div>
 
-        <div className="w-[150px] flex">
+        <div className="w-[150px] flex border-l-2 border-l-white/5">
           <button
-            className="m-auto mt-0 mb-0 cursor-pointer hover:bg-red-600/10! rounded-2xl text-gray-700 font-bold navbarItems hover:scale-85"
+            className="m-auto mt-0 mb-0 cursor-pointer hover:bg-red-600/10! rounded-2xl text-green-700 font-extrabold navbarItems hover:scale-85"
             onClick={handleClick}
           >
             Logout!
