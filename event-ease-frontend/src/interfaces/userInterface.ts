@@ -14,8 +14,3 @@ export interface userInterface {
   email: string;
   role: string;
 }
-
-export interface userMin {
-  id: string;
-  name: string;
-}

@@ -16,13 +16,18 @@ const EventCard = ({ title, bannerImage, location, date, type }: eventCard) => {
 
   return (
     <div className="eventCard">
-      <div className="mb-1">{title}</div>
+      <div className="mb-1 glassEffect rounded-lg bg-black/40! shadow-xs! shadow-amber-50">
+        {title}
+      </div>
       <figure>
         <Image src={bannerImage} alt="Banner Image" width={200} height={200} />
       </figure>
-      <div className="flex justify-around mt-1.5 bg-black text-white rounded-2xl">
+      <div className="flex justify-between px-2 mt-1.5 bg-black/70 text-stone-400 rounded-2xl">
         <div>{location}</div>
-        <div> {`-> ${convertedDate}`}</div>
+        <figure className="self-center">
+          <Image src="/rightArrow.svg" alt="Arrow" width={18} height={18} />
+        </figure>
+        <div className="-ml-0.5">{convertedDate}</div>
       </div>
       <div className="mt-1.5">
         <span

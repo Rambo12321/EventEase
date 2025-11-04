@@ -195,12 +195,12 @@ body {
 }
 
 .eventCard {
-  @apply flex-col flex-none bg-gray-800 border-2 border-amber-50 w-[12rem] h-[16.5rem] justify-around rounded-3xl pt-2 shadow-sm shadow-red-400 text-center;
+  @apply flex-col flex-none bg-[url('/cardBg.svg')] bg-center bg-cover border-2 border-amber-50 w-[12rem] h-[16.5rem] justify-around rounded-3xl pt-2 shadow-sm shadow-stone-100 text-center inset-shadow-sm inset-shadow-stone-100/40;
   /* scroll-snap-align: start; */
 }
 
 .eventCard:hover {
-  transform: scale(1.03);
+  transform: scale(1.05) translateY(-4);
   transition: ease-in-out 0.4s;
 
   @apply cursor-grab shadow-2xl shadow-gray-700;

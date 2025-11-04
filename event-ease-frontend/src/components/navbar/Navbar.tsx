@@ -3,12 +3,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-import { selectAuthToken, logout } from "@/store/authSlice";
-import { useSelector, useDispatch } from "react-redux";
+import { logout } from "@/store/authSlice";
+import { useDispatch } from "react-redux";
 import { deleteCookie } from "cookies-next";
 
 const Navbar = () => {
-  const token = useSelector(selectAuthToken);
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -27,7 +26,7 @@ const Navbar = () => {
         <div className="mr-auto">
           <ul className="flex justify-between">
             <li>
-              <Link href={token ? "/dashboard" : "/signup"}>
+              <Link href="/dashboard">
                 <Image
                   src="/Event-Ease.png"
                   alt="Event-Ease Logo"
@@ -50,7 +49,7 @@ const Navbar = () => {
 
         <div className="w-[150px] flex border-l-2 border-l-white/5">
           <button
-            className="m-auto mt-0 mb-0 cursor-pointer hover:bg-red-600/10! rounded-2xl text-green-700 font-extrabold navbarItems hover:scale-85"
+            className="m-auto mt-0 mb-0 cursor-pointer hover:bg-red-600/10! rounded-2xl text-yellow-300 font-extrabold navbarItems hover:scale-85"
             onClick={handleClick}
           >
             Logout!
