@@ -182,7 +182,7 @@ body {
 }
 
 .cardContainer {
-  @apply flex justify-start border-b-2 border-t-2 gap-12 pl-12 pr-12 border-amber-300 pt-4 pb-4 overflow-x-scroll scroll-smooth;
+  @apply flex justify-start border-y-2 border-x-0 gap-12 pl-12 pr-12 border-amber-300 pt-4 pb-4 overflow-x-scroll scroll-smooth;
 
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -195,7 +195,7 @@ body {
 }
 
 .eventCard {
-  @apply flex-col flex-none bg-gray-800 border-2 border-amber-50 w-[12rem] h-[16.5rem] justify-around rounded-3xl pt-2 shadow-sm shadow-red-400;
+  @apply flex-col flex-none bg-gray-800 border-2 border-amber-50 w-[12rem] h-[16.5rem] justify-around rounded-3xl pt-2 shadow-sm shadow-red-400 text-center;
   /* scroll-snap-align: start; */
 }
 

@@ -113,8 +113,8 @@ const DashBoardPage = () => {
   );
 
   return (
-    <div className="h-full bg-[url('/background.svg')] bg-cover bg-center -mt-15 overflow-x-hidden">
-      <div className="w-full text-center pt-8">
+    <div className="h-full bg-[url('/background.svg')] bg-cover bg-center -mt-17 overflow-x-hidden">
+      <div className="w-full text-center pt-10">
         <div className="text-8xl text-amber-700 pt-9 font-shadows font-bold animate-reveal mb-8">
           Hello {user?.name.split(" ")[0]},
         </div>
