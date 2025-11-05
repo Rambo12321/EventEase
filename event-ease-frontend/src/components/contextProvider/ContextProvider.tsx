@@ -8,8 +8,15 @@ import { usePathname, useRouter } from "next/navigation";
 import { setCredentials } from "@/store/authSlice";
 import Navbar from "../navbar/Navbar";
 
-const PUBLIC_PATHS = ["/login", "/", "/signup", "/dashboard", "/events"];
-const NAVBAR_PAGES = ["/dashboard", "/events"];
+const PUBLIC_PATHS = [
+  "/login",
+  "/",
+  "/signup",
+  "/dashboard",
+  "/events",
+  "/events/global",
+];
+const NAVBAR_PAGES = ["/dashboard", "/events", "/events/global"];
 
 const ContextLogic = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useDispatch();

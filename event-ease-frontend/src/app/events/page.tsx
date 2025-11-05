@@ -8,6 +8,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import EventCard from "@/components/eventCard/EventCard";
 import SkeletonFallback from "@/components/skeletonFallback/SkeletonFallback";
+import EventTypeSwitchButton from "@/components/eventTypeSwitchButton/EventTypeSwitchButton";
 
 const EventsPage = () => {
   const CARDS_AT_SCREEN = 13;
@@ -56,6 +57,12 @@ const EventsPage = () => {
 
   return (
     <>
+      <div className="pt-20">
+        <h1 className="font-bold font-shadows text-8xl text-amber-300 text-center">
+          All events of user 👇🏻
+        </h1>
+      </div>
+      <EventTypeSwitchButton />
       <div className=" mt-8 p-12 border-4 border-amber-200 border-dashed">
         <ul className="flex gap-x-12 gap-y-8 p-12 glassEffect justify-center flex-wrap list-none">
           {allUserEvents && allUserEvents.length > 1
