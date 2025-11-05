@@ -16,13 +16,11 @@ const EventCard = ({ title, bannerImage, location, date, type }: eventCard) => {
 
   return (
     <div className="eventCard">
-      <div className="mb-1 glassEffect rounded-lg bg-black/40! shadow-xs! shadow-amber-50">
-        {title}
-      </div>
+      <div className="mb-1 glassEffect rounded-lg bg-blue-400/10!">{title}</div>
       <figure>
         <Image src={bannerImage} alt="Banner Image" width={200} height={200} />
       </figure>
-      <div className="flex justify-between px-2 mt-1.5 bg-black/70 text-stone-400 rounded-2xl">
+      <div className="flex justify-between px-2 mt-1.5 text-stone-300 rounded-2xl glassEffect bg-blue-400/10!">
         <div>{location}</div>
         <figure className="self-center">
           <Image src="/rightArrow.svg" alt="Arrow" width={18} height={18} />
@@ -31,8 +29,8 @@ const EventCard = ({ title, bannerImage, location, date, type }: eventCard) => {
       </div>
       <div className="mt-1.5">
         <span
-          className={`bg-green-700 rounded-md px-3 py-0.5 ${
-            type === "Global" ? "bg-green-700" : "bg-red-700"
+          className={`glassEffect rounded-md px-3 py-0.5 ${
+            type === "Global" ? "bg-green-700/45!" : "bg-red-700/45!"
           }`}
         >
           Type: {type}

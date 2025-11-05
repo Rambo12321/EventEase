@@ -115,8 +115,11 @@ const DashBoardPage = () => {
   return (
     <div className="h-full bg-fixed bg-[url('/background.svg')] bg-cover bg-center -mt-17 overflow-x-hidden">
       <div className="w-full text-center pt-10">
-        <div className="text-8xl text-amber-700 pt-9 font-shadows font-bold animate-reveal mb-8">
-          Hello {user?.name.split(" ")[0]},
+        <div className="text-8xl text-amber-700 py-2 px-3 font-shadows font-bold animate-reveal mb-6 w-fit rounded-xl bg-black/10! mt-9 glassEffect mx-auto inset-shadow-gray-300 inset-shadow-sm shadow-[5px_5px_10px_rgba(0,0,0,0.6)]! ">
+          <span>
+            Hello {user?.name.split(" ")[0]}
+            <span className="handAnimate">👋🏻</span>,
+          </span>
         </div>
 
         <div className="flex pl-10 text-4xl text-yellow-500 font-bold underline ml-8">

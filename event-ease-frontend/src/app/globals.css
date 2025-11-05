@@ -31,11 +31,11 @@ body {
 }
 
 .navbarItems:hover {
-  @apply bg-white/20;
+  @apply bg-white/5;
 }
 
 .navbarBg {
-  @apply top-0 z-[500] flex backdrop-blur-sm bg-white/20 sticky w-full shadow-md;
+  @apply top-0 z-[500] flex backdrop-blur-sm bg-white/10 sticky w-full shadow-md;
 }
 
 .glassEffect {
@@ -195,7 +195,7 @@ body {
 }
 
 .eventCard {
-  @apply flex-col flex-none bg-[url('/cardBg.svg')] bg-center bg-cover border-2 border-amber-50 w-[12rem] h-[16.5rem] justify-around rounded-3xl pt-2 shadow-sm shadow-stone-100 text-center inset-shadow-sm inset-shadow-stone-100/40;
+  @apply flex-col flex-none bg-[url('/cardBg.svg')] bg-center bg-cover border-2 border-amber-50 w-[12rem] h-[16.5rem] justify-around rounded-3xl pt-2 shadow-[4px_4px_10px_rgba(0,0,0,0.5)] text-center inset-shadow-[2px_2px_3px_rgba(0,0,0,0.1)];
   /* scroll-snap-align: start; */
 }
 
@@ -212,6 +212,22 @@ body {
 
 .allEventButton:hover {
   scale: 1.1;
+}
+
+@keyframes hello {
+  0%,
+  100% {
+    rotate: calc(-5deg);
+  }
+  50% {
+    rotate: calc(5deg);
+  }
+}
+
+.handAnimate {
+  animation: hello 1s infinite both ease-in-out;
+  display: inline-block;
+  transform-origin: right bottom;
 }
 
 @layer components {
