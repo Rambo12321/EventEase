@@ -29,7 +29,7 @@ const EventTypeSwitchButton = () => {
     <div className="flex">
       <button
         onClick={toggle}
-        className={`glassEffect w-fit border-l-0! mt-4 hover:cursor-grab bg-black/25! ${
+        className={`glassEffect w-fit border-l-0! mt-4 cursor-customPointer bg-black/25! ${
           sidebar ? "hidden" : ""
         }`}
       >

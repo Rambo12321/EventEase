@@ -12,6 +12,8 @@
   --font-mono: var(--font-geist-mono);
   --font-shadows: var(--font-shadowsLight);
   --font-newsReader: var(--font-newsReader);
+  --cursor-customNormal: url("/cursors/cursor-normal.png") 5 5, auto;
+  --cursor-customPointer: url("/cursors/cursor-pointer.png") 8 0, auto;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -19,6 +21,11 @@
     --background: #0a0a0a;
     --foreground: #ededed;
   }
+}
+
+html,
+body {
+  @apply cursor-customNormal;
 }
 
 body {
