@@ -288,7 +288,7 @@ body {
   .eventContainer {
     @apply mt-8 p-12 border-4 border-amber-200 border-dashed;
 
-    & div {
+    .pagebar {
       @apply flex w-fit justify-center bg-white/10! align-middle;
 
       & p {

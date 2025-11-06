@@ -90,7 +90,7 @@ const EventsPage = () => {
       </div>
       <EventTypeSwitchButton />
       <div className="eventContainer">
-        <div className="glassEffect">
+        <div className="pagebar glassEffect">
           <p>Switch Page : </p>
           <button
             onClick={handleClickBackward}
