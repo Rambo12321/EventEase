@@ -66,8 +66,8 @@ const GlobalPage = () => {
       </div>
       <EventTypeSwitchButton />
       <div className="eventContainer">
-        <div className="glassEffect">
-          <p className="">Switch Page : </p>
+        <div className="pagebar glassEffect">
+          <p>Switch Page : </p>
           <button
             onClick={handleClickBackward}
             disabled={currPage == 1}
@@ -75,7 +75,7 @@ const GlobalPage = () => {
           >
             {currPage > 1 ? "⬅️" : "👎🏻"}
           </button>
-          <div className="">{currPage}</div>
+          <div>{currPage}</div>
           <button
             disabled={currPage == pages}
             onClick={handleClickForward}
@@ -89,7 +89,7 @@ const GlobalPage = () => {
             ? allGlobalEvents
                 .slice((currPage - 1) * 13, currPage * 13)
                 .map((event: eventInterface, index) => (
-                  <li key={index} className="">
+                  <li key={index}>
                     <EventCard
                       key={index}
                       title={event.title}

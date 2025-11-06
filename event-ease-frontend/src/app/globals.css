@@ -207,7 +207,7 @@ body {
   transform: scale(1.05) translateY(-4);
   transition: ease-in-out 0.4s;
 
-  @apply cursor-grab shadow-2xl shadow-gray-700;
+  @apply shadow-lg shadow-white/80 border-orange-500 cursor-customPointer;
 }
 
 .allEventButton {
