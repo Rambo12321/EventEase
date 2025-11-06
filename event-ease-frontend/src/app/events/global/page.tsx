@@ -10,7 +10,7 @@ import { useCallback, useEffect, useState } from "react";
 const GlobalPage = () => {
   const CARDS_AT_SCREEN = 13;
 
-  const [totalEvents, setTotalEvents] = useState<number>(0);
+  let totalEvents = 0;
   const [currPage, setCurrPage] = useState<number>(1);
   const [pages, setPages] = useState<number>(0);
   const [allGlobalEvents, setAllGlobalEvents] = useState<eventInterface[]>([]);
@@ -20,11 +20,14 @@ const GlobalPage = () => {
 
     if (events && events.length > 1) {
       setAllGlobalEvents(events);
-      setTotalEvents(events.length);
       setPages(Math.ceil(events.length / CARDS_AT_SCREEN));
     }
     return;
   }, []);
+
+  if (allGlobalEvents.length > 0) {
+    totalEvents = allGlobalEvents.length;
+  }
 
   useEffect(() => {
     fetchGlobalEvents();
@@ -59,34 +62,32 @@ const GlobalPage = () => {
   return (
     <>
       <div className="pt-20">
-        <h1 className="font-bold font-shadows text-8xl text-amber-300 text-center">
-          All Global events 👇🏻
-        </h1>
+        <h1 className="eventHeading">All Global events 👇🏻</h1>
       </div>
       <EventTypeSwitchButton />
-      <div className=" mt-8 p-12 border-4 border-amber-200 border-dashed">
-        <div className="flex glassEffect w-fit justify-center bg-white/10! align-middle">
-          <p className="pl-2 self-center text-black font-bold text-xl font-newsReader">
-            Switch Page :{" "}
-          </p>
+      <div className="eventContainer">
+        <div className="glassEffect">
+          <p className="">Switch Page : </p>
           <button
             onClick={handleClickBackward}
-            className="text-2xl cursor-customPointer"
+            disabled={currPage == 1}
+            className={currPage > 1 ? "" : "cursor-customNormal!"}
           >
-            ⬅️
+            {currPage > 1 ? "⬅️" : "👎🏻"}
           </button>
-          <div className="bg-black/50 rounded-sm px-2 my-1">{currPage}</div>
+          <div className="">{currPage}</div>
           <button
+            disabled={currPage == pages}
             onClick={handleClickForward}
-            className="cursor-customPointer text-2xl"
+            className={currPage == pages ? "cursor-customNormal!" : ""}
           >
-            ➡️
+            {currPage == pages ? "👎🏻" : "➡️"}
           </button>
         </div>
-        <ul className="flex gap-x-12 gap-y-8 p-12 glassEffect justify-center flex-wrap list-none">
+        <ul className="glassEffect">
           {allGlobalEvents && allGlobalEvents.length > 1
             ? allGlobalEvents
-                .slice(0, 13)
+                .slice((currPage - 1) * 13, currPage * 13)
                 .map((event: eventInterface, index) => (
                   <li key={index} className="">
                     <EventCard

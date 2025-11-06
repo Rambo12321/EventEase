@@ -13,6 +13,10 @@ import EventTypeSwitchButton from "@/components/eventTypeSwitchButton/EventTypeS
 const EventsPage = () => {
   const CARDS_AT_SCREEN = 13;
 
+  let totalEvents = 0;
+  const [currPage, setCurrPage] = useState<number>(1);
+  const [pages, setPages] = useState<number>(0);
+
   const [allUserEvents, setAllUserEvents] = useState<eventInterface[]>([]);
   const [currentUser, setCurrentUser] = useState<userInterface>({
     name: "Rohan Kaushik",
@@ -40,44 +44,86 @@ const EventsPage = () => {
 
     if (events && events.length > 1) {
       setAllUserEvents(events);
+      setPages(Math.ceil(events.length / CARDS_AT_SCREEN));
     }
     return;
   }, []);
+
+  if (allUserEvents.length > 0) {
+    totalEvents = allUserEvents.length;
+  }
 
   useEffect(() => {
     fetchUserEvents(currentUser.id);
   }, [fetchUserEvents, currentUser]);
 
   console.log("userEvents -> ", allUserEvents);
-  console.log("userEvents length-> ", allUserEvents.length);
+  console.log("Total Events-> ", totalEvents);
+  console.log("Total Pages Found -> ", pages);
 
-  const numOfPages = Math.ceil(allUserEvents.length / CARDS_AT_SCREEN);
+  const handleClickForward = () => {
+    if (currPage < pages) {
+      setCurrPage(currPage + 1);
+      console.log("Page moved forward");
+    } else {
+      console.log("Limit over Button disable here");
+    }
+    console.log("Clicked on a button", pages);
+    return;
+  };
 
-  console.log("Pages Found -> ", numOfPages);
+  const handleClickBackward = () => {
+    if (currPage >= 2) {
+      setCurrPage(currPage - 1);
+      console.log("Page moved backward");
+    } else {
+      console.log("Limit over Button disable here");
+    }
+    console.log("Clicked on a button", pages);
+    return;
+  };
 
   return (
     <>
       <div className="pt-20">
-        <h1 className="font-bold font-shadows text-8xl text-amber-300 text-center">
-          All events of user 👇🏻
-        </h1>
+        <h1 className="eventHeading">All events of user 👇🏻</h1>
       </div>
       <EventTypeSwitchButton />
-      <div className=" mt-8 p-12 border-4 border-amber-200 border-dashed">
-        <ul className="flex gap-x-12 gap-y-8 p-12 glassEffect justify-center flex-wrap list-none">
+      <div className="eventContainer">
+        <div className="glassEffect">
+          <p>Switch Page : </p>
+          <button
+            onClick={handleClickBackward}
+            disabled={currPage == 1}
+            className={currPage > 1 ? "" : "cursor-customNormal!"}
+          >
+            {currPage > 1 ? "⬅️" : "👎🏻"}
+          </button>
+          <div>{currPage}</div>
+          <button
+            disabled={currPage == pages}
+            onClick={handleClickForward}
+            className={currPage == pages ? "cursor-customNormal!" : ""}
+          >
+            {currPage == pages ? "👎🏻" : "➡️"}
+          </button>
+        </div>
+        <ul className="glassEffect">
           {allUserEvents && allUserEvents.length > 1
-            ? allUserEvents.slice(0, 13).map((event: eventInterface, index) => (
-                <li key={index} className="">
-                  <EventCard
-                    key={index}
-                    title={event.title}
-                    location={event.location}
-                    date={event.date}
-                    type={event.type}
-                    bannerImage={event.bannerImage}
-                  />
-                </li>
-              ))
+            ? allUserEvents
+                .slice((currPage - 1) * 13, currPage * 13)
+                .map((event: eventInterface, index) => (
+                  <li key={index}>
+                    <EventCard
+                      key={index}
+                      title={event.title}
+                      location={event.location}
+                      date={event.date}
+                      type={event.type}
+                      bannerImage={event.bannerImage}
+                    />
+                  </li>
+                ))
             : Array(10)
                 .fill(null)
                 .map((_, index) => <SkeletonFallback key={index} />)}

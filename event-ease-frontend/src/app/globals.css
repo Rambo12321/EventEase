@@ -46,10 +46,6 @@ body {
   @apply top-0 z-[500] flex backdrop-blur-sm bg-white/10 sticky w-full shadow-md;
 }
 
-.glassEffect {
-  @apply bg-transparent backdrop-blur-xs border border-white/30 shadow-lg;
-}
-
 @keyframes meteorMove {
   from {
     background-position: 0 0;
@@ -246,7 +242,15 @@ body {
   transform-origin: right bottom;
 }
 
+.eventHeading {
+  @apply font-bold font-shadows text-8xl text-amber-300 text-center;
+}
+
 @layer components {
+  .glassEffect {
+    @apply bg-transparent backdrop-blur-xs border border-white/30 shadow-lg;
+  }
+
   .mainButton {
     @apply bg-transparent p-2.5 border-gray-800 border-4 transition-all duration-400 ease-[cubic-bezier(0.68,-0.55,0.265,1.55)] w-[15rem] h-[6rem] rounded-md;
 
@@ -278,6 +282,30 @@ body {
       & span {
         background-position: left center;
       }
+    }
+  }
+
+  .eventContainer {
+    @apply mt-8 p-12 border-4 border-amber-200 border-dashed;
+
+    & div {
+      @apply flex w-fit justify-center bg-white/10! align-middle;
+
+      & p {
+        @apply pl-2 self-center text-black font-bold text-xl font-newsReader;
+      }
+
+      & button {
+        @apply cursor-customPointer text-2xl;
+      }
+
+      & div {
+        @apply bg-black/50! rounded-sm px-2 my-1;
+      }
+    }
+
+    & ul {
+      @apply flex gap-x-12 gap-y-8 p-12 justify-center flex-wrap list-none;
     }
   }
 }
