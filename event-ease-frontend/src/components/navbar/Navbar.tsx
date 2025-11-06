@@ -26,7 +26,7 @@ const Navbar = () => {
         <div className="mr-auto">
           <ul className="flex justify-between">
             <li>
-              <Link href="/dashboard">
+              <Link className="cursor-customPointer" href="/dashboard">
                 <Image
                   src="/Event-Ease.png"
                   alt="Event-Ease Logo"
@@ -39,9 +39,11 @@ const Navbar = () => {
             {navItems.map(({ id, name, target }) => (
               <li
                 key={id}
-                className="w-40 font-semibold navbarItems text-center pt-3.5"
+                className="w-40 font-semibold navbarItems cursor-customPointer text-center pt-3.5"
               >
-                <Link href={target}>{name}</Link>
+                <Link className="cursor-customPointer" href={target}>
+                  {name}
+                </Link>
               </li>
             ))}
           </ul>
@@ -49,7 +51,7 @@ const Navbar = () => {
 
         <div className="w-[150px] flex border-l-2 border-l-white/5">
           <button
-            className="m-auto mt-0 mb-0 cursor-pointer hover:bg-red-600/10! rounded-2xl text-yellow-300 font-extrabold navbarItems hover:scale-85"
+            className="m-auto cursor-customPointer mt-0 mb-0 hover:bg-red-600/10! rounded-2xl text-yellow-300 font-extrabold navbarItems hover:scale-85"
             onClick={handleClick}
           >
             Logout!

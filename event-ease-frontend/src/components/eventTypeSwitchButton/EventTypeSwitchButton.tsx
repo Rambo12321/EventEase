@@ -17,13 +17,7 @@ const EventTypeSwitchButton = () => {
     userTrue = true;
   }
 
-  const toggle = () => {
-    if (sidebar) {
-      setSidebar(false);
-    } else {
-      setSidebar(true);
-    }
-  };
+  const toggle = () => setSidebar(!sidebar);
 
   return (
     <div className="flex">
@@ -46,17 +40,23 @@ const EventTypeSwitchButton = () => {
         <Link href="/events/global">
           <button
             disabled={globalTrue}
-            className={`pageSwitchButton ${globalTrue ? " bg-white/20!" : ""}`}
+            className={`pageSwitchButton  ${
+              globalTrue
+                ? " bg-white/20! scale-95 cursor-customNormal"
+                : "cursor-customPointer"
+            }`}
           >
             Global
           </button>
         </Link>
-        <span className="border-r-2 border-white text-[37px]">{`   `}</span>
+        <span className=" text-[37px]">{` |  `}</span>
         <Link href="/events">
           <button
             disabled={userTrue}
-            className={`pageSwitchButton ml-2 ${
-              userTrue ? "bg-white/20! scale-95" : ""
+            className={`pageSwitchButton ${
+              userTrue
+                ? "bg-white/20! scale-95 cursor-customNormal"
+                : "cursor-customPointer"
             }`}
           >
             User
@@ -65,7 +65,7 @@ const EventTypeSwitchButton = () => {
       </div>
       <button
         onClick={toggle}
-        className={`glassEffect w-fit border-l-0! mt-4 bg-black/25! glassEffect hover:cursor-grab ${
+        className={`glassEffect w-fit border-l-0! mt-4 bg-black/25! glassEffect cursor-customPointer ${
           !sidebar ? "hidden" : ""
         }`}
       >

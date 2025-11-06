@@ -1,6 +1,6 @@
 const BannerImg = (): string => {
   const randomInt = Math.floor(Math.random() * (400 - 40) + 20);
-  console.log("randomInt -> ", randomInt);
+  console.debug("randomInt -> ", randomInt);
   let imgPath;
 
   if (randomInt % 2 === 0) {
@@ -9,7 +9,7 @@ const BannerImg = (): string => {
     imgPath = "/card-img-4.png";
   }
 
-  console.log("Choosing path -> ", imgPath);
+  console.debug("Choosing path -> ", imgPath);
   return imgPath;
 };
 
