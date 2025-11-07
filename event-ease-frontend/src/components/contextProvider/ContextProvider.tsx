@@ -2,27 +2,47 @@
 
 import { Provider, useDispatch } from "react-redux";
 import { store } from "@/store/store";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getCookie } from "cookies-next";
 import { usePathname, useRouter } from "next/navigation";
 import { setCredentials } from "@/store/authSlice";
 import Navbar from "../navbar/Navbar";
 
+import { userTokenInterface } from "@/interfaces/userInterface";
+
 const PUBLIC_PATHS = [
   "/login",
   "/",
   "/signup",
-  "/dashboard",
   "/events",
   "/events/global",
+  "/events/add",
 ];
-const NAVBAR_PAGES = ["/dashboard", "/events", "/events/global"];
+const NAVBAR_PAGES = ["/dashboard", "/events", "/events/global", "/events/add"];
 
 const ContextLogic = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useDispatch();
   const router = useRouter();
-
   const pathName = usePathname();
+
+  const [userCookie, setUserCookie] = useState<userTokenInterface>();
+  const [tokenCookie, setTokenCookie] = useState("");
+
+  const setStore = async () => {
+    const user = (await getCookie("user")) || "";
+    const token = (await getCookie("token")) || "";
+
+    if (userCookie && tokenCookie) {
+      setUserCookie(JSON.parse(user));
+      setTokenCookie(token);
+    }
+  };
+  setStore();
+
+  console.log("TokenCookie -> ", tokenCookie);
+  console.log("UserCookie -> ", userCookie);
+
+  // useDispatch(setCredentials({ token: tokenCookie, user: userCookie }));
 
   useEffect(() => {
     if (PUBLIC_PATHS.includes(pathName)) return;

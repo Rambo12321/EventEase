@@ -226,6 +226,10 @@ body {
   @apply bg-white/90;
 }
 
+.addEventFormInput {
+  @apply w-fit px-4 py-2 rounded-lg border-2 border-amber-700 text-white;
+}
+
 @keyframes hello {
   0%,
   100% {

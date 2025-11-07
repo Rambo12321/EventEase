@@ -3,7 +3,7 @@ export const navItems = [
   {
     id: 2,
     name: "Add Event",
-    target: "/events",
+    target: "/events/add",
   },
   {
     id: 3,

@@ -3,6 +3,9 @@ import { Geist, Geist_Mono, Newsreader } from "next/font/google";
 import { Shadows_Into_Light } from "next/font/google";
 import "./globals.css";
 import ContextProvider from "@/components/contextProvider/ContextProvider";
+import { cookies } from "next/headers";
+import { useDispatch } from "react-redux";
+import { setCredentials } from "@/store/authSlice";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

@@ -232,8 +232,8 @@ export const deleteEvent = async (req, res, next) => {
 export const getAllPublicEvents = async (req, res, next) => {
   try {
     const allPublicEvents = await prisma.event.findMany({
-      where: { type: "Global" },
-      orderBy: { createdAt: "desc" },
+      where: { type: "Global", date: { gt: new Date() } },
+      orderBy: { date: "asc" },
     });
 
     if (!allPublicEvents) {
