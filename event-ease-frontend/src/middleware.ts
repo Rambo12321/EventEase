@@ -3,9 +3,14 @@ import { jwtVerify } from "jose";
 
 const SECRET_KEY = process.env.JWT_SECRET!;
 
+const PUBLIC_PATHS = ["/login", "/", "/signup", "/events/global"];
+
 export const middleware = (req: NextRequest) => {
   const token = req.cookies.get("token")?.value;
 
+  if (PUBLIC_PATHS.includes(req.nextUrl.pathname)) {
+    return NextResponse.next();
+  }
   if (!token) {
     const response = NextResponse.redirect(new URL("/login", req.url));
     response.cookies.delete("token");
@@ -26,5 +31,5 @@ export const middleware = (req: NextRequest) => {
 };
 
 export const config = {
-  matcher: ["/profile"],
+  matcher: ["/profile", "/events", "/events/global"],
 };
