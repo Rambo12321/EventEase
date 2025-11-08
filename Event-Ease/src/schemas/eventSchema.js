@@ -8,9 +8,22 @@ export const eventSchema = z.object({
     .string()
     .min(3, { message: "Location name must be of atleast 3 characters" }),
   description: z.string().optional(),
-  date: z.iso.datetime().refine((d) => new Date(d) > new Date(), {
-    message: "Event Date must be in future",
-  }),
+  date: z
+    .string()
+    .min(1, "Date is required")
+    .refine((val) => !isNaN(Date.parse(val)), "Please select a valid date.")
+    .refine(
+      (val) => {
+        const today = new Date();
+
+        const selected = new Date(val);
+
+        return selected > today;
+      },
+      {
+        message: "Event Date must be in future",
+      }
+    ),
   type: z.enum(["Private", "Global"], {
     message: "Value must be either Private or Global",
   }),

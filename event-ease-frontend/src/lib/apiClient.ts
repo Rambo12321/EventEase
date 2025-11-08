@@ -9,11 +9,11 @@ export const apiRequest = async <T>(
   MAIN_URL = `${API_URL}${endpoint}`;
   try {
     const res = await fetch(`${MAIN_URL}`, {
+      ...options,
       headers: {
         "Content-Type": "application/json",
         ...options.headers,
       },
-      ...options,
     });
 
     if (!res.ok) {

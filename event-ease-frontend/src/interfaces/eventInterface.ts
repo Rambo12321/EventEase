@@ -15,3 +15,11 @@ export interface eventCard {
   type: string;
   location: string;
 }
+
+export interface eventSubmitInterface {
+  title: string;
+  date: string;
+  description: string | null;
+  type: ["Private", "Global"];
+  location: string;
+}

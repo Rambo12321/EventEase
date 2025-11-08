@@ -1,6 +1,6 @@
 import { apiRequest } from "@/lib/apiClient";
 import { eventInterface } from "@/interfaces/eventInterface";
-
+import { eventSubmitType } from "@/schemas/eventSchema";
 export const getAllUserEvents = async (
   userId: string
 ): Promise<eventInterface[]> => {
@@ -27,10 +27,18 @@ export const getEventById = async (
 };
 
 export const postEvent = async (
-  data: eventInterface
-): Promise<eventInterface> => {
-  return apiRequest("/event", {
+  data: eventSubmitType,
+  token: string
+): Promise<string> => {
+  const dateConverted = new Date(data.date).toISOString();
+  data.date = dateConverted;
+
+  console.log("Sending the data -> ", data);
+  return await apiRequest("/event", {
     method: "POST",
     body: JSON.stringify(data),
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
   });
 };

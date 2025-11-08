@@ -50,30 +50,6 @@ export const addEvent = async (req, res, next) => {
 
     console.log("requestedUser -> ", req.user);
 
-    // NO NEED TO CHECK THIS AS NOW WE ARE SENDING REQUEST FROM USER(LOGGED IN)
-    // if (!userId) {
-    //   const err = new Error(`"UserId" must be provided to create event`);
-    //   err.statusCode = 401;
-    //   throw err;
-    // }
-
-    // const user = await validateUser(userId);
-
-    // if (!user) {
-    //   const err = new Error(`No user exist with id : ${userId}`);
-    //   err.statusCode = 404;
-    //   throw err;
-    // }
-
-    // NOT REQUIRED MANUALLY AS HANDLED by zod
-    // if (!title || !date || !location) {
-    //   const err = new Error(
-    //     `"location" , "date" and "title" must be provided to create event`
-    //   );
-    //   err.statusCode = 401;
-    //   throw err;
-    // }
-
     const event = await prisma.event.create({
       data: {
         title,
@@ -86,7 +62,7 @@ export const addEvent = async (req, res, next) => {
       },
       include: { user: true },
     });
-    res.status(200).json(event);
+    res.status(200).json("Event Created Successfully");
   } catch (error) {
     next(error);
   }
