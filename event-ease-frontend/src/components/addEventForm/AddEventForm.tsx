@@ -1,13 +1,15 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { eventSchema } from "@/schemas/eventSchema";
 import { postEvent } from "@/api/eventAPI";
 import { useSelector } from "react-redux";
 import { selectAuthToken } from "@/store/authSlice";
 import { eventSubmitType } from "@/schemas/eventSchema";
+
+import Dropdown from "../dropdown/Dropdown";
 
 const AddEventForm = () => {
   const token = useSelector(selectAuthToken);
@@ -16,32 +18,28 @@ const AddEventForm = () => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
+    reset,
+    setValue,
   } = useForm<eventSubmitType>({
     resolver: zodResolver(eventSchema),
   });
 
   const [serverError, setServerError] = useState<string | null>();
 
-  const formRef = useRef<HTMLFormElement | null>(null);
   const onSubmit = async (data: eventSubmitType) => {
     try {
       console.log("Submit hitted for data -> ", data);
       setServerError(null);
 
-      let ans = "";
-
       if (token) {
-        ans = await postEvent(data, token);
-        console.log("Response -> ", ans);
+        await postEvent(data, token);
       } else {
         const err = new Error();
         err.message = "Autherization token not found 👎🏻";
         throw err;
       }
 
-      if (formRef) {
-        formRef.current?.reset();
-      }
+      reset();
     } catch (error) {
       const err = error instanceof Error ? error : "Failed to submit the Event";
       console.log(`Error while submitting the form =>`, err);
@@ -49,13 +47,11 @@ const AddEventForm = () => {
     }
     return;
   };
-
+  useEffect(() => {
+    register("type", { required: true });
+  });
   return (
-    <form
-      ref={formRef}
-      onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-2"
-    >
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
       <>
         <input
           {...register("title")}
@@ -71,7 +67,7 @@ const AddEventForm = () => {
 
       <input
         {...register("description")}
-        type="tex t"
+        type="text"
         placeholder="Description"
         className="addEventFormInput"
         autoComplete="Description"
@@ -81,7 +77,7 @@ const AddEventForm = () => {
         <input
           {...register("date")}
           type="datetime-local"
-          className="addEventFormInput mx-auto"
+          className="addEventFormInput w-full!"
           autoComplete="Date"
         />
         {errors.date && (
@@ -90,12 +86,14 @@ const AddEventForm = () => {
       </>
 
       <>
-        <input
-          {...register("type")}
-          type="text"
-          placeholder="Type"
-          className="addEventFormInput"
-          autoComplete="type"
+        <Dropdown
+          width="327.81"
+          topOffset="264"
+          onSelect={(val) =>
+            setValue("type", val as "Private" | "Global", {
+              shouldValidate: true,
+            })
+          }
         />
         {errors.type && (
           <p className="text-red-500 text-sm">{errors.type.message}</p>

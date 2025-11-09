@@ -29,7 +29,7 @@ export const getEventById = async (
 export const postEvent = async (
   data: eventSubmitType,
   token: string
-): Promise<string> => {
+): Promise<{ message: string }> => {
   const dateConverted = new Date(data.date).toISOString();
   data.date = dateConverted;
 

@@ -7,7 +7,7 @@ export const navItems = [
   },
   {
     id: 3,
-    name: "Update info",
+    name: "Update Event",
     target: "/users",
   },
 ];
