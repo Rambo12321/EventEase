@@ -8,7 +8,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { setCredentials } from "@/store/authSlice";
 import Navbar from "../navbar/Navbar";
 
-const PUBLIC_PATHS = ["/login", "/", "/signup", "/events/global"];
+const PUBLIC_PATHS = ["/login", "/", "/signup", "/events", "/events/global"];
 const NAVBAR_PAGES = ["/dashboard", "/events", "/events/global", "/events/add"];
 
 const ContextLogic = ({ children }: { children: React.ReactNode }) => {
@@ -17,13 +17,14 @@ const ContextLogic = ({ children }: { children: React.ReactNode }) => {
   const pathName = usePathname();
 
   useEffect(() => {
-    if (PUBLIC_PATHS.includes(pathName)) return;
     const fetchCreds = async () => {
       const token = await getCookie("token");
       const userCookie = (await getCookie("user")) || "";
 
       console.log("TokenCookie -> ", token);
       console.log("UserCookie -> ", userCookie);
+
+      if (PUBLIC_PATHS.includes(pathName)) return;
 
       const user = userCookie ? JSON.parse(userCookie) : null;
 

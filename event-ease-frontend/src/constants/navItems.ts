@@ -8,6 +8,6 @@ export const navItems = [
   {
     id: 3,
     name: "Update Event",
-    target: "/users",
+    target: "/events/update",
   },
 ];

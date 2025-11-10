@@ -46,23 +46,8 @@ body {
   @apply top-0 z-[500] flex backdrop-blur-sm bg-white/10 sticky w-full shadow-md;
 }
 
-@keyframes meteorMove {
-  from {
-    background-position: 0 0;
-  }
-  to {
-    background-position: 0px 2000px;
-  }
-}
-
 .loginContainer {
-  @apply flex items-center justify-center transition-all bg-black min-h-screen bg-center bg-repeat;
-
-  background-image: url("/Meteor.svg");
-  background-size: 1000px 1000px;
-  background-repeat: repeat;
-
-  animation: meteorMove 50s infinite linear;
+  @apply flex items-center justify-center min-h-screen;
 }
 
 @keyframes drift {

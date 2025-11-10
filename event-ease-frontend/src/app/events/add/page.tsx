@@ -1,13 +1,22 @@
 import AddEventForm from "@/components/addEventForm/AddEventForm";
+import { Vortex } from "@/components/magicUI/Vortex";
+
+//flex-col flex pt-20 min-h-screen text-2xl bg-cover bg-center bg-[url('/addEventBg.svg')]
 
 const AddEventPage = () => {
   return (
-    <div className="flex-col flex pt-20 min-h-screen text-2xl bg-cover bg-center bg-[url('/addEventBg.svg')]">
+    <Vortex
+      backgroundColor="black"
+      rangeY={800}
+      particleCount={800}
+      baseHue={120}
+      className="flex-col flex pt-20 min-h-screen text-2xl"
+    >
       <h1 className="eventHeading mb-10">Add event 🪂</h1>
       <div className="glassEffect p-10 bg-black/40 rounded-md w-fit self-center">
         <AddEventForm />
       </div>
-    </div>
+    </Vortex>
   );
 };
 
