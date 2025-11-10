@@ -46,7 +46,7 @@ const SignupFrom = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="space-y-4 mt-6 ml-8 mr-8 mb-5 flex-none justify-center align-middle"
+      className="space-y-4 mt-6 ml-8 mr-8 mb-5 flex-none justify-center  align-middle"
     >
       <>
         <input
@@ -77,7 +77,7 @@ const SignupFrom = () => {
           {...register("password")}
           type="password"
           placeholder="Password"
-          className="w-full px-4 py-2 rounded-lg border-2 border-amber-700 text-black"
+          className="w-full px-4 py-2 rounded-lg border-2 border-amber-700 text-white"
           autoComplete="password"
         />
         {errors.password && (

@@ -119,7 +119,7 @@ body {
 }
 
 .signupContainer {
-  @apply relative overflow-hidden flex items-center justify-center min-h-screen bg-black;
+  @apply overflow-hidden flex items-center justify-center min-h-screen;
 }
 
 .wave {
