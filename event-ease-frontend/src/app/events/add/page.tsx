@@ -13,7 +13,7 @@ const AddEventPage = () => {
       className="flex-col flex pt-20 min-h-screen text-2xl"
     >
       <h1 className="eventHeading mb-10">Add event 🪂</h1>
-      <div className="glassEffect p-10 bg-black/40 rounded-md w-fit self-center">
+      <div className="glassEffect p-10 bg-black/40 rounded-md w-fit self-center shadow-[1px_1px_8px] backdrop-blur-xl shadow-amber-50! border-0!">
         <AddEventForm />
       </div>
     </Vortex>

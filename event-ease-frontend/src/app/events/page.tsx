@@ -11,7 +11,7 @@ import SkeletonFallback from "@/components/skeletonFallback/SkeletonFallback";
 import EventTypeSwitchButton from "@/components/eventTypeSwitchButton/EventTypeSwitchButton";
 
 const EventsPage = () => {
-  const CARDS_AT_SCREEN = 13;
+  const CARDS_AT_SCREEN = 10;
 
   let totalEvents = 0;
   const [currPage, setCurrPage] = useState<number>(1);
@@ -35,9 +35,11 @@ const EventsPage = () => {
     );
   }
 
-  if (user && user !== null) {
-    setCurrentUser(user);
-  }
+  useEffect(() => {
+    if (user && user !== null) {
+      setCurrentUser(user);
+    }
+  }, [setCurrentUser, user]);
 
   const fetchUserEvents = useCallback(async (id: string) => {
     const events = await getAllUserEvents(id);
@@ -84,13 +86,13 @@ const EventsPage = () => {
   };
 
   return (
-    <>
+    <div className="bg-[url('/background.svg')] bg-fixed bg-cover bg-center">
       <div className="pt-20">
         <h1 className="eventHeading">All events of user 👇🏻</h1>
       </div>
       <EventTypeSwitchButton />
       <div className="eventContainer">
-        <div className="pagebar glassEffect">
+        <div className="pagebar glassEffect bg-transparent!">
           <p>Switch Page : </p>
           <button
             onClick={handleClickBackward}
@@ -111,7 +113,10 @@ const EventsPage = () => {
         <ul className="glassEffect">
           {allUserEvents && allUserEvents.length > 1
             ? allUserEvents
-                .slice((currPage - 1) * 13, currPage * 13)
+                .slice(
+                  (currPage - 1) * CARDS_AT_SCREEN,
+                  currPage * CARDS_AT_SCREEN
+                )
                 .map((event: eventInterface, index) => (
                   <li key={index}>
                     <EventCard
@@ -129,7 +134,7 @@ const EventsPage = () => {
                 .map((_, index) => <SkeletonFallback key={index} />)}
         </ul>
       </div>
-    </>
+    </div>
   );
 };
 

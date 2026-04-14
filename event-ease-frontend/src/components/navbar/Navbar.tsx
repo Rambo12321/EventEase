@@ -39,7 +39,7 @@ const Navbar = () => {
             {navItems.map(({ id, name, target }) => (
               <li
                 key={id}
-                className="w-40 font-semibold navbarItems cursor-customPointer text-center pt-3.5"
+                className="w-44 min-w-fit font-semibold navbarItems cursor-customPointer text-center pt-3.5 px-6"
               >
                 <Link className="cursor-customPointer" href={target}>
                   {name}

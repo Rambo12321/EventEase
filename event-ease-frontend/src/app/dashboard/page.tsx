@@ -132,7 +132,7 @@ const DashBoardPage = () => {
           {userEventLoading
             ? Array(5)
                 .fill(null)
-                .map((_, index) => <SkeletonFallback key={index} />)
+                .map((index) => <SkeletonFallback key={index} />)
             : userEvents && userEvents.length > 1
             ? [
                 ...userEvents.slice(10 - cardsOnScreen, 10),

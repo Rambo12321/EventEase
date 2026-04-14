@@ -3,12 +3,12 @@ import { jwtVerify } from "jose";
 
 const SECRET_KEY = process.env.JWT_SECRET!;
 
-const PUBLIC_PATHS = ["/login", "/", "/signup", "/events/global"];
+const PUBLIC_PATHS = [""];
 
 export const middleware = (req: NextRequest) => {
   const token = req.cookies.get("token")?.value;
 
-  if (PUBLIC_PATHS.includes(req.nextUrl.pathname)) {
+  if (!PUBLIC_PATHS.includes(req.nextUrl.pathname)) {
     return NextResponse.next();
   }
   if (!token) {

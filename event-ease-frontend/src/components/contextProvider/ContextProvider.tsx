@@ -8,8 +8,8 @@ import { usePathname, useRouter } from "next/navigation";
 import { setCredentials } from "@/store/authSlice";
 import Navbar from "../navbar/Navbar";
 
-const PUBLIC_PATHS = ["/login", "/", "/signup", "/events", "/events/global"];
-const NAVBAR_PAGES = ["/dashboard", "/events", "/events/global", "/events/add"];
+const PUBLIC_PATHS = [""];
+const NOT_NAVBAR_PAGES = ["/", "/login", "/signup"];
 
 const ContextLogic = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useDispatch();
@@ -24,7 +24,7 @@ const ContextLogic = ({ children }: { children: React.ReactNode }) => {
       console.log("TokenCookie -> ", token);
       console.log("UserCookie -> ", userCookie);
 
-      if (PUBLIC_PATHS.includes(pathName)) return;
+      if (!PUBLIC_PATHS.includes(pathName)) return;
 
       const user = userCookie ? JSON.parse(userCookie) : null;
 
@@ -53,7 +53,7 @@ const ContextLogic = ({ children }: { children: React.ReactNode }) => {
 const ContextProvider = ({ children }: { children: React.ReactNode }) => {
   const pathName = usePathname();
 
-  const navBarTrue = NAVBAR_PAGES.includes(pathName);
+  const navBarTrue = !NOT_NAVBAR_PAGES.includes(pathName);
   return (
     <Provider store={store}>
       <ContextLogic>

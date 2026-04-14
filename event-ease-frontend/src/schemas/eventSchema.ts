@@ -32,3 +32,5 @@ export const eventSchema = z.object({
 export const updateEventSchema = eventSchema.partial();
 
 export type eventSubmitType = z.infer<typeof eventSchema>;
+
+export type eventUpdateType = z.infer<typeof updateEventSchema>;

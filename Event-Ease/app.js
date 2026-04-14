@@ -5,7 +5,6 @@ import fs from "fs";
 import path from "path";
 import cors from "cors";
 
-// import apiKeyAuth from "./src/middleware/middleware.js";
 import authRoutes from "./src/routes/authRoutes.js";
 import userRoutes from "./src/routes/userRoutes.js";
 import eventRoutes from "./src/routes/eventRoutes.js";
@@ -15,6 +14,7 @@ import { swaggerDocs } from "./src/utils/swagger.js";
 
 dotenv.config();
 const app = express();
+app.use(express.json());
 
 app.use(cors({ origin: "http://localhost:3000", Credentials: true }));
 
@@ -28,7 +28,6 @@ const accessLogStream = fs.createWriteStream(
   { flags: "a" }
 );
 
-app.use(express.json());
 app.use(morgan("dev"));
 app.use(morgan("combined", { stream: accessLogStream }));
 
